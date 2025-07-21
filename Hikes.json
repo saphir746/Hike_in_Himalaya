@@ -1,0 +1,218 @@
+{
+  "activities": [
+    {
+      "id": 1,
+      "name": "Buran Ghati Trek",
+      "location": "Himachal",
+      "duration": "8 Days",
+      "group_size": "6-15 People",
+      "price": {
+        "amount": 17000,
+        "currency": "INR",
+        "formatted": "₹17,000"
+      },
+      "difficulty": "Challenging"
+    },
+    {
+      "id": 2,
+      "name": "Chandranahan Lake Trek",
+      "location": "Himachal",
+      "duration": "6 Days",
+      "group_size": "2-15 People",
+      "price": {
+        "amount": 10500,
+        "currency": "INR",
+        "formatted": "₹10,500"
+      },
+      "difficulty": "Moderate"
+    },
+    {
+      "id": 3,
+      "name": "Pin Parvati Pass",
+      "location": "Himachal",
+      "duration": "12 Days",
+      "group_size": "6-15 People",
+      "price": {
+        "amount": 49000,
+        "currency": "INR",
+        "formatted": "₹49,000"
+      },
+      "difficulty": "Challenging"
+    },
+    {
+      "id": 4,
+      "name": "Rupin Pass Trek",
+      "location": "Himachal",
+      "duration": "7 Days",
+      "group_size": "4-10 People",
+      "price": {
+        "amount": 17000,
+        "currency": "INR",
+        "formatted": "₹17,000"
+      },
+      "difficulty": "Moderate"
+    },
+    {
+      "id": 5,
+      "name": "Kedarkantha Trek",
+      "location": "Uttarakhand",
+      "duration": "5 Days",
+      "group_size": "4-10 People",
+      "price": {
+        "amount": 7500,
+        "currency": "INR",
+        "formatted": "₹7,500"
+      },
+      "difficulty": "Easy"
+    },
+    {
+      "id": 6,
+      "name": "Pin Bhaba Pass Trek",
+      "location": "Himachal",
+      "duration": "7 Days",
+      "group_size": "4-10 People",
+      "price": {
+        "amount": 19000,
+        "currency": "INR",
+        "formatted": "₹19,000"
+      },
+      "difficulty": "Challenging"
+    },
+    {
+      "id": 7,
+      "name": "Hampta Pass Trek",
+      "location": "Himachal",
+      "duration": "5 Days",
+      "group_size": "4-15 People",
+      "price": {
+        "amount": 11500,
+        "currency": "INR",
+        "formatted": "₹11,500"
+      },
+      "difficulty": "Moderate"
+    },
+    {
+      "id": 8,
+      "name": "Friendship Peak Trek",
+      "location": "Manali, Himachal",
+      "duration": "7 Days",
+      "group_size": "6-15 People",
+      "price": {
+        "amount": 34400,
+        "currency": "INR",
+        "formatted": "₹34,400"
+      },
+      "difficulty": "Challenging"
+    },
+    {
+      "id": 9,
+      "name": "Kashmir Great Lakes Trek",
+      "location": "Kashmir",
+      "duration": "8 Days",
+      "group_size": "4-10 People",
+      "price": {
+        "amount": 17500,
+        "currency": "INR",
+        "formatted": "₹17,500"
+      },
+      "difficulty": "Challenging"
+    },
+    {
+      "id": 10,
+      "name": "Parang La Expedition",
+      "location": "Himachal",
+      "duration": "12 Days",
+      "group_size": "4-8 People",
+      "price": {
+        "amount": 39000,
+        "currency": "INR",
+        "formatted": "₹39,000"
+      },
+      "difficulty": "Challenging"
+    },
+    {
+      "id": 11,
+      "name": "Bhrigu Lake Trek",
+      "location": "Himachal",
+      "duration": "4 Days",
+      "group_size": "4-8 People",
+      "price": {
+        "amount": 5990,
+        "currency": "INR",
+        "formatted": "₹5,990"
+      },
+      "difficulty": "Moderate"
+    },
+    {
+      "id": 12,
+      "name": "Kang Yatse II Peak EXPEDITION",
+      "location": "Ladakh",
+      "duration": "11 Days",
+      "group_size": "6-12 People",
+      "price": {
+        "amount": 58000,
+        "currency": "INR",
+        "formatted": "₹58,000"
+      },
+      "difficulty": "Challenging"
+    },
+    {
+      "id": 13,
+      "name": "Everest Base Camp Trek",
+      "location": "Nepal",
+      "duration": "14 Days",
+      "group_size": "8-15 People",
+      "price": {
+        "amount": 49500,
+        "currency": "INR",
+        "formatted": "₹49,500"
+      },
+      "difficulty": "Challenging"
+    },
+    {
+      "id": 14,
+      "name": "Annapurna Circuit Trek",
+      "location": "Nepal",
+      "duration": "10 Days",
+      "group_size": "6-15 People",
+      "price": {
+        "amount": 23000,
+        "currency": "INR",
+        "formatted": "₹23,000"
+      },
+      "difficulty": "Moderate"
+    },
+    {
+      "id": 15,
+      "name": "Black Peak Expedition",
+      "location": "Garhwal Himalayas, Uttarakhand",
+      "duration": "16 Days",
+      "group_size": "6-12 People",
+      "price": {
+        "amount": 85000,
+        "currency": "INR",
+        "formatted": "₹85,000"
+      },
+      "difficulty": "Challenging"
+    }
+  ],
+  "metadata": {
+    "total_activities": 15,
+    "regions": ["Himachal", "Uttarakhand", "Kashmir", "Nepal", "Ladakh"],
+    "difficulty_distribution": {
+      "Easy": 1,
+      "Moderate": 5,
+      "Challenging": 9
+    },
+    "price_range": {
+      "min": 5990,
+      "max": 85000,
+      "average": 26729
+    },
+    "duration_range": {
+      "min_days": 4,
+      "max_days": 16
+    },
+    "generated_on": "2025-07-21"
+  }
+}
