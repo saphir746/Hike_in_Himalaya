@@ -77,7 +77,7 @@ export default function Home() {
               <div className="h-48 bg-gradient-to-r from-green-400 to-blue-500"></div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">Everest Base Camp</h3>
-                <p className="text-gray-600 mb-4">14-day journey to the world's highest peak base camp</p>
+                <p className="text-gray-600 mb-4">14-day journey to the world&apos;s highest peak base camp</p>
                 <div className="flex justify-between items-center">
                   <span className="text-2xl font-bold text-green-600">$2,499</span>
                   <Link href="/treks/everest-base-camp" className="text-blue-600 hover:text-blue-800">
@@ -151,13 +151,7 @@ export default function Home() {
                   <svg className="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Sleeping bags and tents
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Climbing equipment
+                  Sleeping bags and mats
                 </li>
               </ul>
               <Link 
@@ -179,7 +173,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready for Your Next Adventure?</h2>
           <p className="text-xl mb-8">
-            Join thousands of adventurers who have trusted us with their mountain dreams.
+            Join thousands of adventurers who have trusted us with their Himalayan dreams.
           </p>
           <Link 
             href="/treks"
