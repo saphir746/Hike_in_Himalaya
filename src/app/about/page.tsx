@@ -1,5 +1,5 @@
 import Layout from '../../../components/Layout'
-import Image from 'next/image'
+import Link from 'next/link'
 
 export default function AboutPage() {
   return (
@@ -139,18 +139,18 @@ As word spread, our adventure naturally evolved. What started as small group tre
             Join us for an unforgettable journey through the world&apos;s most spectacular mountains.
           </p>
           <div className="space-x-4">
-            <a 
+            <Link 
               href="/treks"
               className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
             >
               Explore Treks
-            </a>
-            <a 
+            </Link>
+            <Link 
               href="/contact"
               className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors inline-block"
             >
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
       </div>
