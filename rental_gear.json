@@ -1,0 +1,351 @@
+{
+  "rental_gear": [
+    {
+      "id": 1,
+      "name": "Camping Tent",
+      "category": "Tents",
+      "price": {
+        "amount": 200,
+        "currency": "INR",
+        "formatted": "₹200/day",
+        "per": "day"
+      },
+      "description": "Four-season tent perfect for high-altitude camping.",
+      "availability": "available"
+    },
+    {
+      "id": 2,
+      "name": "Duffle Bag",
+      "category": "Bags",
+      "price": {
+        "amount": 100,
+        "currency": "INR",
+        "formatted": "₹100/day",
+        "per": "day"
+      },
+      "description": "Waterproof duffle bag with 95L capacity, perfect for expeditions.",
+      "specifications": {
+        "capacity": "95L",
+        "waterproof": true
+      },
+      "availability": "available"
+    },
+    {
+      "id": 3,
+      "name": "Jacket",
+      "category": "Clothing",
+      "price": {
+        "amount": 200,
+        "currency": "INR",
+        "formatted": "₹200/day",
+        "per": "day"
+      },
+      "description": "Insulated down jacket for extreme cold conditions.",
+      "specifications": {
+        "insulation": "down",
+        "use_case": "extreme cold"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 4,
+      "name": "Gloves",
+      "category": "Clothing",
+      "price": {
+        "amount": 50,
+        "currency": "INR",
+        "formatted": "₹50/day",
+        "per": "day"
+      },
+      "description": "Waterproof and warm mountaineering gloves.",
+      "specifications": {
+        "waterproof": true,
+        "type": "mountaineering"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 5,
+      "name": "Gaiters",
+      "category": "Clothing",
+      "price": {
+        "amount": 80,
+        "currency": "INR",
+        "formatted": "₹80/day",
+        "per": "day"
+      },
+      "description": "Heavy-duty waterproof gaiters for snow and rough terrain.",
+      "specifications": {
+        "waterproof": true,
+        "terrain": ["snow", "rough terrain"]
+      },
+      "availability": "available"
+    },
+    {
+      "id": 6,
+      "name": "Sleeping Bag",
+      "category": "Sleeping Bags",
+      "price": {
+        "amount": 100,
+        "currency": "INR",
+        "formatted": "₹100/day",
+        "per": "day"
+      },
+      "description": "Premium down sleeping bag rated for -7°C.",
+      "specifications": {
+        "temperature_rating": "-7°C",
+        "insulation": "down",
+        "quality": "premium"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 7,
+      "name": "Trekking Shoes",
+      "category": "Footwear",
+      "price": {
+        "amount": 200,
+        "currency": "INR",
+        "formatted": "₹200/day",
+        "per": "day"
+      },
+      "description": "Professional mountaineering boots for technical climbing.",
+      "specifications": {
+        "type": "mountaineering boots",
+        "use_case": "technical climbing"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 8,
+      "name": "Trekking Poles",
+      "category": "Climbing Gear",
+      "price": {
+        "amount": 70,
+        "currency": "INR",
+        "formatted": "₹70/day",
+        "per": "day"
+      },
+      "description": "Lightweight carbon fiber poles with FlickLock Pro.",
+      "specifications": {
+        "material": "carbon fiber",
+        "weight": "lightweight",
+        "lock_system": "FlickLock Pro"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 9,
+      "name": "Rucksack Cover",
+      "category": "Accessories",
+      "price": {
+        "amount": 10,
+        "currency": "INR",
+        "formatted": "₹10/day",
+        "per": "day"
+      },
+      "description": "Waterproof cover for backpacks up to 70L.",
+      "specifications": {
+        "capacity": "up to 70L",
+        "waterproof": true
+      },
+      "availability": "available"
+    },
+    {
+      "id": 10,
+      "name": "Flask",
+      "category": "Accessories",
+      "price": {
+        "amount": 20,
+        "currency": "INR",
+        "formatted": "₹20/day",
+        "per": "day"
+      },
+      "description": "1L insulated flask keeps drinks hot for 24 hours.",
+      "specifications": {
+        "capacity": "1L",
+        "insulated": true,
+        "hot_retention": "24 hours"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 11,
+      "name": "Head Torch",
+      "category": "Accessories",
+      "price": {
+        "amount": 50,
+        "currency": "INR",
+        "formatted": "₹50/day",
+        "per": "day"
+      },
+      "description": "Powerful 450 lumens rechargeable headlamp.",
+      "specifications": {
+        "brightness": "450 lumens",
+        "rechargeable": true,
+        "type": "headlamp"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 12,
+      "name": "Poncho",
+      "category": "Clothing",
+      "price": {
+        "amount": 100,
+        "currency": "INR",
+        "formatted": "₹100/day",
+        "per": "day"
+      },
+      "description": "Lightweight emergency rain protection.",
+      "specifications": {
+        "weight": "lightweight",
+        "use_case": "emergency rain protection"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 13,
+      "name": "Dry Bag",
+      "category": "Bags",
+      "price": {
+        "amount": 50,
+        "currency": "INR",
+        "formatted": "₹50/day",
+        "per": "day"
+      },
+      "description": "Waterproof bag for protecting essential gear.",
+      "specifications": {
+        "waterproof": true,
+        "use_case": "gear protection"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 14,
+      "name": "Sunglass",
+      "category": "Accessories",
+      "price": {
+        "amount": 50,
+        "currency": "INR",
+        "formatted": "₹50/day",
+        "per": "day"
+      },
+      "description": "High-altitude glacier glasses with removable shields.",
+      "specifications": {
+        "type": "glacier glasses",
+        "altitude": "high-altitude",
+        "shields": "removable"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 15,
+      "name": "Power Bank",
+      "category": "Electronics",
+      "price": {
+        "amount": 80,
+        "currency": "INR",
+        "formatted": "₹80/day",
+        "per": "day"
+      },
+      "description": "High-capacity portable charger for multiple devices.",
+      "specifications": {
+        "capacity": "high-capacity",
+        "compatibility": "multiple devices",
+        "portable": true
+      },
+      "availability": "available"
+    },
+    {
+      "id": 16,
+      "name": "Steel Mug",
+      "category": "Accessories",
+      "price": {
+        "amount": 10,
+        "currency": "INR",
+        "formatted": "₹10/day",
+        "per": "day"
+      },
+      "description": "Durable stainless steel camping mug for hot beverages.",
+      "specifications": {
+        "material": "stainless steel",
+        "durability": "durable",
+        "use_case": "hot beverages"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 17,
+      "name": "Hot Water Bag",
+      "category": "Accessories",
+      "price": {
+        "amount": 20,
+        "currency": "INR",
+        "formatted": "₹20/day",
+        "per": "day"
+      },
+      "description": "Rubber hot water bottle for cold weather comfort.",
+      "specifications": {
+        "material": "rubber",
+        "use_case": "cold weather comfort"
+      },
+      "availability": "available"
+    },
+    {
+      "id": 18,
+      "name": "Tiffin Box",
+      "category": "Accessories",
+      "price": {
+        "amount": 30,
+        "currency": "INR",
+        "formatted": "₹30/day",
+        "per": "day"
+      },
+      "description": "Multi-tier stainless steel food container for trekking.",
+      "specifications": {
+        "tiers": "multi-tier",
+        "material": "stainless steel",
+        "use_case": "food storage"
+      },
+      "availability": "available"
+    }
+  ],
+  "metadata": {
+    "total_items": 18,
+    "categories": [
+      "Tents",
+      "Bags", 
+      "Clothing",
+      "Sleeping Bags",
+      "Footwear",
+      "Climbing Gear",
+      "Accessories",
+      "Electronics"
+    ],
+    "category_distribution": {
+      "Accessories": 8,
+      "Clothing": 4,
+      "Bags": 2,
+      "Tents": 1,
+      "Sleeping Bags": 1,
+      "Footwear": 1,
+      "Climbing Gear": 1,
+      "Electronics": 1
+    },
+    "price_range": {
+      "min": 10,
+      "max": 200,
+      "average": 76
+    },
+    "pricing_tiers": {
+      "budget": "₹10-50/day",
+      "mid_range": "₹50-100/day", 
+      "premium": "₹100-200/day"
+    },
+    "all_available": true,
+    "currency": "INR",
+    "rental_basis": "per day",
+    "generated_on": "2025-07-21"
+  }
+}
