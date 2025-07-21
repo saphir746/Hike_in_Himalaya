@@ -24,6 +24,7 @@ export default function Layout({ children }: LayoutProps) {
             <div className="flex items-center space-x-4">
               <Link href="/treks">Treks</Link>
               <Link href="/gear">Gear Rental</Link>
+              <Link href="/contact">Contact</Link>
               <Link href="/cart">Cart</Link>
             </div>
           </div>
