@@ -32,42 +32,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose HikeinHimalaya?</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Expert Guides</h3>
-              <p className="text-gray-600">Professional, certified guides with years of mountain experience</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Premium Equipment</h3>
-              <p className="text-gray-600">High-quality gear rental and safety equipment included</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Unforgettable Experience</h3>
-              <p className="text-gray-600">Carefully crafted itineraries for maximum adventure and safety</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Popular Treks Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
@@ -94,19 +58,6 @@ export default function Home() {
                 <div className="flex justify-between items-center">
                   <span className="text-2xl font-bold text-green-600">$1,899</span>
                   <Link href="/treks/buran-ghati-trek" className="text-blue-600 hover:text-blue-800">
-                    Learn More →
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="h-48 bg-gradient-to-r from-purple-400 to-pink-500"></div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Kilimanjaro Summit</h3>
-                <p className="text-gray-600 mb-4">7-day expedition to Africa&apos;s highest peak</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-green-600">$3,299</span>
-                  <Link href="/treks/kilimanjaro" className="text-blue-600 hover:text-blue-800">
                     Learn More →
                   </Link>
                 </div>

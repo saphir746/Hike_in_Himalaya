@@ -11,7 +11,7 @@ export default function AboutPage() {
             About HikeinHimalaya
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          At Hike in Himalaya, we believe that trekking is more than just a journey through the majestic landscapes of the Himalaya—it's an experience that connects you to nature, adventure, and the rich heritage of these mountains.
+          At Hike in Himalaya, we believe that trekking is more than just a journey through the majestic landscapes of the Himalaya—it&apos;s an experience that connects you to nature, adventure, and the rich heritage of these mountains.
 
 Our story began eight years ago, rooted in a deep love for the trails and peaks of the Himalayas. Founded by locals who grew up exploring these awe-inspiring landscapes, Hike in Himalaya started as a humble trek equipment rental service. Fueled by a passion for sharing the wonders of the region, we soon began guiding small groups on local treks, introducing them to hidden gems and untouched beauty that only seasoned locals know.
 
@@ -58,30 +58,6 @@ As word spread, our adventure naturally evolved. What started as small group tre
           </div>
         </div>
 
-        {/* Story Section */}
-        <div className="bg-gray-50 rounded-lg p-8 mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Our Story</h2>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-gray-600 mb-4">
-              Founded in 2010 by passionate mountaineer Ranjeet, HikeinHimalaya began as a dream 
-              to share the incredible beauty and spiritual essence of the Himalayas with fellow 
-              adventure seekers. What started as small group treks with friends has grown into 
-              a trusted adventure company serving trekkers from around the world.
-            </p>
-            <p className="text-gray-600 mb-4">
-              Based in the heart of Himachal Pradesh, we have intimate knowledge of the region&apos;s 
-              hidden gems, secret trails, and local communities. Our team of certified guides 
-              brings together decades of mountain experience with a deep respect for the 
-              environment and local culture.
-            </p>
-            <p className="text-gray-600">
-              Today, HikeinHimalaya is proud to be a leader in sustainable mountain tourism, 
-              offering everything from challenging high-altitude expeditions to gentle family 
-              treks, all while maintaining our core values of safety, authenticity, and respect 
-              for the mountains we call home.
-            </p>
-          </div>
-        </div>
 
         {/* Team Section */}
         <div className="mb-16">
@@ -114,59 +90,47 @@ As word spread, our adventure naturally evolved. What started as small group tre
               <h3 className="text-xl font-semibold mb-2">Ashish Negi</h3>
               <p className="text-green-600 font-medium mb-2">Co-Founder</p>
               <p className="text-gray-600 text-sm">
-              xpert in adventure tour planning and logistics
+              Expert in adventure tour planning and logistics
               </p>
             </div>
           </div>
         </div>
 
-        {/* Values Section */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.818-4.954A9 9 0 1112 21a9 9 0 018.818-9.046z" />
-              </svg>
+      {/* Features Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Choose HikeinHimalaya?</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Expert Guides</h3>
+              <p className="text-gray-600">Professional, certified guides with years of mountain experience</p>
             </div>
-            <h3 className="text-lg font-semibold mb-2">Safety First</h3>
-            <p className="text-gray-600 text-sm">
-              Your safety is our top priority. We maintain the highest safety standards and emergency protocols.
-            </p>
-          </div>
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+            <div className="text-center">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Premium Equipment</h3>
+              <p className="text-gray-600">High-quality gear rental and safety equipment included</p>
             </div>
-            <h3 className="text-lg font-semibold mb-2">Authentic Experiences</h3>
-            <p className="text-gray-600 text-sm">
-              We create genuine connections with local culture and pristine mountain environments.
-            </p>
-          </div>
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div className="text-center">
+              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Unforgettable Experience</h3>
+              <p className="text-gray-600">Carefully crafted itineraries for maximum adventure and safety</p>
             </div>
-            <h3 className="text-lg font-semibold mb-2">Environmental Care</h3>
-            <p className="text-gray-600 text-sm">
-              We practice Leave No Trace principles and support conservation efforts in the region.
-            </p>
-          </div>
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold mb-2">Community Support</h3>
-            <p className="text-gray-600 text-sm">
-              We work with local communities to ensure tourism benefits everyone in the region.
-            </p>
           </div>
         </div>
+      </section>
 
         {/* Call to Action */}
         <div className="bg-green-600 text-white rounded-lg p-8 text-center">
