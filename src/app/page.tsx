@@ -103,7 +103,7 @@ export default function Home() {
               <div className="h-48 bg-gradient-to-r from-purple-400 to-pink-500"></div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">Kilimanjaro Summit</h3>
-                <p className="text-gray-600 mb-4">7-day expedition to Africa's highest peak</p>
+                <p className="text-gray-600 mb-4">7-day expedition to Africa&apos;s highest peak</p>
                 <div className="flex justify-between items-center">
                   <span className="text-2xl font-bold text-green-600">$3,299</span>
                   <Link href="/treks/kilimanjaro" className="text-blue-600 hover:text-blue-800">
@@ -131,8 +131,8 @@ export default function Home() {
             <div>
               <h2 className="text-3xl font-bold mb-6">Professional Gear Rental</h2>
               <p className="text-gray-600 mb-6">
-                Don't have the gear? No problem! We offer high-quality equipment rentals 
-                for all your trekking needs. From boots to sleeping bags, we've got you covered.
+                Don&apos;t have the gear? No problem! We offer high-quality equipment rentals 
+                for all your trekking needs. From boots to sleeping bags, we&apos;ve got you covered.
               </p>
               <ul className="space-y-2 mb-8">
                 <li className="flex items-center">
