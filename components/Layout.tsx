@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -7,12 +8,17 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-green-800 text-white">
+      <nav className="bg-white text-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Link href="/" className="text-xl font-bold">
-                HikeinHimalaya
+              <Link href="/" className="flex items-center">
+                <Image 
+                  src="/images/logos/logo.hikeinhimalaya.svg"
+                  alt="HikeinHimalaya"
+                  width={180}
+                  height={40}
+                />
               </Link>
             </div>
             <div className="flex items-center space-x-4">
