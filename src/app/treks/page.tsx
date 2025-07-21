@@ -38,32 +38,6 @@ export default function TreksPage() {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-700 to-blue-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Himalayan Trek Adventures
-          </h1>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Discover breathtaking landscapes, challenge yourself, and create unforgettable memories 
-            on our expertly guided treks across the Himalayas.
-          </p>
-          <div className="flex justify-center space-x-8 text-sm">
-            <div className="text-center">
-              <div className="text-2xl font-bold">{hikesData.metadata.total_activities}+</div>
-              <div>Epic Treks</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold">{hikesData.metadata.regions.length}</div>
-              <div>Regions</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold">100%</div>
-              <div>Success Rate</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Filters Section */}
       <section className="py-8 bg-white border-b">

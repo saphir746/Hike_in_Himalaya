@@ -50,7 +50,7 @@ export default function TrekDetailPage() {
     }
   }
 
-  // Mock detailed data (in a real app, this would come from a more detailed JSON or CMS)
+  // Trek content including base content from markdown file
   const getDetailedInfo = (trekName: string) => {
     const baseInfo = {
       overview: `Experience the breathtaking beauty of ${trekName}. This carefully crafted itinerary takes you through some of the most spectacular landscapes in the Himalayas, offering a perfect blend of adventure, natural beauty, and cultural immersion.`,
@@ -62,21 +62,64 @@ export default function TrekDetailPage() {
         'All meals and accommodation included'
       ],
       included: [
-        'Professional trek leader and local guides',
+        'Professional trek guide',
+        'All necessary permits and entry fees',
+        'Camping equipment (tents, sleeping bags)',
         'All meals during the trek',
-        'Accommodation (tents/guesthouses)',
-        'Transportation from base to trek start',
-        'Safety equipment and first aid kit',
-        'Permits and entry fees'
+        'First aid kit and basic medical supplies',
+        'Transportation to and from trek starting point'
       ],
       not_included: [
-        'Personal trekking equipment',
+        'Personal hiking gear and clothing',
         'Travel insurance',
         'Personal expenses',
-        'Tips for guides and staff',
-        'Emergency evacuation costs'
+        'Tips for guides and porters',
+        'Any items not mentioned in inclusions'
       ],
-      best_time: 'March to June and September to November'
+      best_time: 'March to June and September to November',
+      equipment: {
+        trekking_gear: [
+          'Ruck sack bag with rain cover. Qty -1',
+          'Day Pack Bag - Recommended for treks with summit day',
+          'Head Torch with spare Batteries. Qty -1',
+          'U V protection sunglasses. Qty -1',
+          'Water Bottles: 2 bottles of 1 liter each'
+        ],
+        clothing: [
+          'Quick Dry Warm lower or Track Pants. Qty - 2',
+          'Full sleeves T-shirts/ Sweatshirts. 1 for every 2 days of trekking',
+          'Pair of thick woolen socks. 1 pair for every two days of trekking',
+          'Thermal Body warmer Upper & Lower. Qty-1',
+          'Undergarments. Qty - 1 for every day of trekking',
+          'Warm jacket closed at wrist & neck .Qty-1',
+          'Full sleeves sweater. Qty -1',
+          'Rain wear ( Jacket & Pants ) . Qty-1',
+          'Pair of waterproof, warm gloves. Qty-1',
+          'Woolen cap. Qty-1',
+          'Sun shielding Hat. Qty -1'
+        ],
+        footwear: [
+          'Non-skid, deep treaded, high-ankle trekking shoes Qty -1',
+          'Pair of light weight Slipper/Sandals Qty -1',
+          'Camp Sandals (Optional)'
+        ],
+        toiletries: [
+          'Personal toiletries kit (Small Towel, Toilet paper, paper soap, Bar soap, toothbrush, toothpaste, cold cream, etc.)',
+          'Sun screen lotion small pack. Qty -1',
+          'Lip Balm small pack. Qty-1'
+        ],
+        utensils: [
+          'Small size, Light weight & Leak proof lunch box. Qty-1',
+          'Plate. Qty-1',
+          'Spoon. Qty-1',
+          'Tea/Coffee (plastic) Mug. Qty-1'
+        ],
+        miscellaneous: [
+          'Camera(Optional)',
+          'Carry your medicines in plenty in case you have any specific ailment. Consult your doctor before joining the trek.',
+          'Dry fruits, Nuts, Chocolate bars(Optional)'
+        ]
+      }
     }
     return baseInfo
   }
@@ -171,6 +214,124 @@ export default function TrekDetailPage() {
                         <span className="text-gray-700">{item}</span>
                       </div>
                     ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Essential Trek Equipment */}
+              <div className="mb-12">
+                <h3 className="text-2xl font-bold mb-6">Essential Trek Equipment</h3>
+                <p className="text-gray-600 mb-6">
+                  Here is a list of essential items for participants trekking with Hike In Himalayas. 
+                  It includes only the items that participants must bring themselves, excluding those 
+                  provided during the trek.
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-8">
+                  {/* Trekking Gear */}
+                  <div className="bg-blue-50 p-6 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-4 text-blue-800">Trekking Gear</h4>
+                    <ul className="space-y-2">
+                      {detailedInfo.equipment.trekking_gear.map((item, index) => (
+                        <li key={index} className="text-gray-700 text-sm flex items-start">
+                          <svg className="w-4 h-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Clothing */}
+                  <div className="bg-green-50 p-6 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-4 text-green-800">Clothing</h4>
+                    <ul className="space-y-2">
+                      {detailedInfo.equipment.clothing.map((item, index) => (
+                        <li key={index} className="text-gray-700 text-sm flex items-start">
+                          <svg className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Footwear */}
+                  <div className="bg-purple-50 p-6 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-4 text-purple-800">Footwear</h4>
+                    <ul className="space-y-2">
+                      {detailedInfo.equipment.footwear.map((item, index) => (
+                        <li key={index} className="text-gray-700 text-sm flex items-start">
+                          <svg className="w-4 h-4 text-purple-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Toiletries */}
+                  <div className="bg-orange-50 p-6 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-4 text-orange-800">Toiletries</h4>
+                    <ul className="space-y-2">
+                      {detailedInfo.equipment.toiletries.map((item, index) => (
+                        <li key={index} className="text-gray-700 text-sm flex items-start">
+                          <svg className="w-4 h-4 text-orange-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Utensils */}
+                  <div className="bg-teal-50 p-6 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-4 text-teal-800">Utensils</h4>
+                    <ul className="space-y-2">
+                      {detailedInfo.equipment.utensils.map((item, index) => (
+                        <li key={index} className="text-gray-700 text-sm flex items-start">
+                          <svg className="w-4 h-4 text-teal-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Miscellaneous */}
+                  <div className="bg-gray-50 p-6 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-4 text-gray-800">Miscellaneous</h4>
+                    <ul className="space-y-2">
+                      {detailedInfo.equipment.miscellaneous.map((item, index) => (
+                        <li key={index} className="text-gray-700 text-sm flex items-start">
+                          <svg className="w-4 h-4 text-gray-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Equipment Rental CTA */}
+                <div className="mt-6 p-4 bg-blue-100 rounded-lg border border-blue-200">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h5 className="font-semibold text-blue-800">Don&apos;t have the gear?</h5>
+                      <p className="text-blue-700 text-sm">Rent professional equipment from our gear collection.</p>
+                    </div>
+                    <Link
+                      href="/gear"
+                      className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                    >
+                      Rent Gear
+                    </Link>
                   </div>
                 </div>
               </div>
