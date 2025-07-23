@@ -1,6 +1,7 @@
 import Layout from '../../components/Layout'
 import Link from 'next/link'
 import Image from 'next/image'
+import hikesData from '../../Hikes.json'
 
 export default function Home() {
   return (
@@ -38,27 +39,48 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Popular Adventures</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Trek 1: Buran Ghati Trek */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
               <div className="h-48 bg-gradient-to-r from-green-400 to-blue-500"></div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Everest Base Camp</h3>
-                <p className="text-gray-600 mb-4">14-day journey to the world&apos;s highest peak base camp</p>
+                <h3 className="text-xl font-semibold mb-2">{hikesData.activities[0].name}</h3>
+                <p className="text-gray-600 mb-2">{hikesData.activities[0].location} • {hikesData.activities[0].duration}</p>
+                <p className="text-sm text-gray-500 mb-4">Difficulty: {hikesData.activities[0].difficulty}</p>
                 <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-green-600">$2,499</span>
-                  <Link href="/treks/everest-base-camp" className="text-blue-600 hover:text-blue-800">
+                  <span className="text-2xl font-bold text-green-600">{hikesData.activities[0].price.formatted}</span>
+                  <Link href={`/treks/${hikesData.activities[0].name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} className="text-blue-600 hover:text-blue-800">
                     Learn More →
                   </Link>
                 </div>
               </div>
             </div>
+            
+            {/* Trek 2: Chandranahan Lake Trek */}
+            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              <div className="h-48 bg-gradient-to-r from-blue-400 to-purple-500"></div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">{hikesData.activities[1].name}</h3>
+                <p className="text-gray-600 mb-2">{hikesData.activities[1].location} • {hikesData.activities[1].duration}</p>
+                <p className="text-sm text-gray-500 mb-4">Difficulty: {hikesData.activities[1].difficulty}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-2xl font-bold text-green-600">{hikesData.activities[1].price.formatted}</span>
+                  <Link href={`/treks/${hikesData.activities[1].name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} className="text-blue-600 hover:text-blue-800">
+                    Learn More →
+                  </Link>
+                </div>
+              </div>
+            </div>
+            
+            {/* Trek 4: Rupin Pass Trek */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
               <div className="h-48 bg-gradient-to-r from-orange-400 to-red-500"></div>
               <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2">Buran Ghati Trek</h3>
-              <p className="text-gray-600">Himachal Pradesh</p>
+                <h3 className="text-xl font-semibold mb-2">{hikesData.activities[3].name}</h3>
+                <p className="text-gray-600 mb-2">{hikesData.activities[3].location} • {hikesData.activities[3].duration}</p>
+                <p className="text-sm text-gray-500 mb-4">Difficulty: {hikesData.activities[3].difficulty}</p>
                 <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-green-600">$1,899</span>
-                  <Link href="/treks/buran-ghati-trek" className="text-blue-600 hover:text-blue-800">
+                  <span className="text-2xl font-bold text-green-600">{hikesData.activities[3].price.formatted}</span>
+                  <Link href={`/treks/${hikesData.activities[3].name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} className="text-blue-600 hover:text-blue-800">
                     Learn More →
                   </Link>
                 </div>

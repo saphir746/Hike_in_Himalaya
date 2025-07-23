@@ -1,71 +1,55 @@
 import Layout from '../../../components/Layout'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function AboutPage() {
   return (
     <Layout>
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            About HikeinHimalaya
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          At Hike in Himalaya, we believe that trekking is more than just a journey through the majestic landscapes of the Himalaya—it&apos;s an experience that connects you to nature, adventure, and the rich heritage of these mountains.
-
-Our story began eight years ago, rooted in a deep love for the trails and peaks of the Himalayas. Founded by locals who grew up exploring these awe-inspiring landscapes, Hike in Himalaya started as a humble trek equipment rental service. Fueled by a passion for sharing the wonders of the region, we soon began guiding small groups on local treks, introducing them to hidden gems and untouched beauty that only seasoned locals know.
-
-As word spread, our adventure naturally evolved. What started as small group treks grew into a professional trekking service dedicated to offering personalized and authentic Himalayan experiences. Today, we are proud to provide not only expertly guided treks but also high-quality trekking equipment rentals to ensure you have a safe and memorable journey.
-          </p>
-        </div>
-
-        {/* Mission Section */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
-            <p className="text-gray-600 mb-4">
-              At HikeinHimalaya, our mission is to provide authentic, safe, and transformative 
-              mountain experiences that inspire a deep connection with the Himalayas. We believe 
-              that every trek should be more than just a journey - it should be a life-changing adventure.
-            </p>
-            <p className="text-gray-600 mb-6">
-              We are committed to sustainable tourism practices that respect local communities 
-              and preserve the pristine mountain environment for future generations.
-            </p>
-            <ul className="space-y-2">
-              <li className="flex items-center text-gray-600">
-                <svg className="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Expert local guides with decades of experience
-              </li>
-              <li className="flex items-center text-gray-600">
-                <svg className="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Small group sizes for personalized attention
-              </li>
-              <li className="flex items-center text-gray-600">
-                <svg className="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Comprehensive safety protocols and equipment
-              </li>
-            </ul>
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              About HikeinHimalaya
+            </h1>
           </div>
-          <div className="h-96 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg flex items-center justify-center">
-            <span className="text-white text-lg">Mission Image Placeholder</span>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-xl text-gray-600 text-left">
+              At Hike in Himalaya, we believe that trekking is more than just a journey through the majestic landscapes of the Himalaya—it&apos;s an experience that connects you to nature, adventure, and the rich heritage of these mountains.
+              </p>
+              <p className="text-xl text-gray-600 text-left">
+              Our story began eight years ago, rooted in a deep love for the trails and peaks of the Himalayas. Founded by locals who grew up exploring these awe-inspiring landscapes, Hike in Himalaya started as a humble trek equipment rental service. Fueled by a passion for sharing the wonders of the region, we soon began guiding small groups on local treks, introducing them to hidden gems and untouched beauty that only seasoned locals know.
+              </p>
+              <p className="text-xl text-gray-600 text-left">
+              As word spread, our adventure naturally evolved. What started as small group treks grew into a professional trekking service dedicated to offering personalized and authentic Himalayan experiences. Today, we are proud to provide not only expertly guided treks but also high-quality trekking equipment rentals to ensure you have a safe and memorable journey.
+              </p>
+            </div>
+            <div className="h-96 rounded-lg overflow-hidden">
+              <Image
+                src="/images/people/buran-ghati4.jpeg"
+                alt="Buran Ghati Trek"
+                width={500}
+                height={400}
+                className="object-cover w-full h-full rounded-lg"
+              />
+            </div>
           </div>
         </div>
-
 
         {/* Team Section */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Meet Our Team</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-32 h-32 bg-gradient-to-r from-blue-400 to-green-400 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white text-lg">Photo</span>
+              <div className="w-48 h-64 rounded-lg mx-auto mb-4 overflow-hidden">
+                <Image
+                  src="/images/people/sanjay.png"
+                  alt="Sanjay Negi"
+                  width={292}
+                  height={256}
+                  className="object-cover w-full h-full"
+                />
               </div>
               <h3 className="text-xl font-semibold mb-2">Sanjay Negi</h3>
               <p className="text-green-600 font-medium mb-2">Founder</p>
@@ -74,8 +58,14 @@ As word spread, our adventure naturally evolved. What started as small group tre
               </p>
             </div>
             <div className="text-center">
-              <div className="w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white text-lg">Photo</span>
+              <div className="w-48 h-64 rounded-lg mx-auto mb-4 overflow-hidden">
+                <Image
+                  src="/images/people/ranjeet.jpg"
+                  alt="Ranjeet Negi"
+                  width={292}
+                  height={256}
+                  className="object-cover w-full h-full"
+                />
               </div>
               <h3 className="text-xl font-semibold mb-2">Ranjeet Negi</h3>
               <p className="text-green-600 font-medium mb-2">Co-Founder</p>
@@ -84,8 +74,14 @@ As word spread, our adventure naturally evolved. What started as small group tre
               </p>
             </div>
             <div className="text-center">
-              <div className="w-32 h-32 bg-gradient-to-r from-orange-400 to-red-400 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white text-lg">Photo</span>
+              <div className="w-48 h-64 rounded-lg mx-auto mb-4 overflow-hidden">
+                <Image
+                  src="/images/people/ashish.jpeg"
+                  alt="Ashish Negi"
+                  width={292}
+                  height={256}
+                  className="object-cover w-full h-full"
+                />
               </div>
               <h3 className="text-xl font-semibold mb-2">Ashish Negi</h3>
               <p className="text-green-600 font-medium mb-2">Co-Founder</p>
