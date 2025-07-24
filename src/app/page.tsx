@@ -9,28 +9,17 @@ import hikesData from '../../Hikes.json'
 export default function Home() {
   // Carousel state
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({})
   
   const carouselImages = [
-    '/images/carousel/carouselHIH1.svg',
-    '/images/carousel/carouselHIH2.svg',
-    '/images/carousel/carouselHIH3.svg'
+    '/images/carousel/carouselHIH1.jpg',
+    '/images/carousel/carouselHIH2.jpg',
+    '/images/carousel/carouselHIH3.jpg'
   ]
-
-  // Debug: Log carousel state
-  useEffect(() => {
-    console.log('Carousel initialized with images:', carouselImages)
-    console.log('Current slide:', currentSlide)
-  }, [])
 
   // Auto-advance slides
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => {
-        const newSlide = (prev + 1) % carouselImages.length
-        console.log('Auto-advancing to slide:', newSlide)
-        return newSlide
-      })
+      setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
     }, 5000) // Change slide every 5 seconds
 
     return () => clearInterval(timer)
@@ -43,90 +32,41 @@ export default function Home() {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)
   }
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index)
-  }
   return (
     <Layout>
-      {/* Carousel Section */}
-      <section className="relative w-full h-96 md:h-[500px] overflow-hidden">
+      {/* Step 1: Full width carousel - no overlay yet */}
+      <section className="relative w-full h-96 md:h-[500px]">
         <div className="relative w-full h-full">
-          {/* Debug info */}
-          <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white p-2 rounded z-50">
-            <div>Slide: {currentSlide + 1}/{carouselImages.length}</div>
-            <div>Path: {carouselImages[currentSlide]}</div>
-          </div>
+          <img 
+            src={carouselImages[currentSlide]}
+            alt={`HikeinHimalaya Adventure ${currentSlide + 1}`}
+            className="w-full h-full object-cover"
+          />
           
-          {/* SVG Display with fallback */}
-          <div className="w-full h-full relative">
-            <img
-              src={carouselImages[currentSlide]}
-              alt={`HikeinHimalaya Adventure ${currentSlide + 1}`}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                console.log('SVG failed to load:', carouselImages[currentSlide])
-                setImageErrors(prev => ({...prev, [currentSlide]: true}))
-                // Fallback to JPG if SVG fails
-                const target = e.target as HTMLImageElement
-                const jpgPath = carouselImages[currentSlide].replace('.svg', '.jpg')
-                console.log('Falling back to JPG:', jpgPath)
-                target.src = jpgPath
-              }}
-              onLoad={() => {
-                console.log('Image loaded successfully:', carouselImages[currentSlide])
-                setImageErrors(prev => ({...prev, [currentSlide]: false}))
-              }}
-            />
-            
-            {/* Fallback if image still fails */}
-            {imageErrors[currentSlide] && (
-              <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-gray-600 mb-2">Image not available</div>
-                  <div className="text-sm text-gray-500">Slide {currentSlide + 1}</div>
-                </div>
-              </div>
-            )}
-          </div>
-          
-          {/* Subtle overlay for better control visibility */}
-          <div className="absolute inset-0 bg-black bg-opacity-10"></div>
-          
-          
-          {/* Navigation arrows */}
+          {/* Simple positioned buttons - no fancy styling yet */}
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-2 rounded-full transition-all duration-200 z-30"
-            aria-label="Previous image"
+            className="absolute left-4 top-1/2 bg-blue-500 text-white px-3 py-2 rounded z-10"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
+            ←
           </button>
           
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-2 rounded-full transition-all duration-200 z-30"
-            aria-label="Next image"
+            className="absolute right-4 top-1/2 bg-blue-500 text-white px-3 py-2 rounded z-10"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            →
           </button>
           
-          {/* Dots indicator */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-30">
+          {/* Simple dots */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
             {carouselImages.map((_, index) => (
               <button
                 key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                  index === currentSlide
-                    ? 'bg-white'
-                    : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+                onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full ${
+                  index === currentSlide ? 'bg-white' : 'bg-gray-400'
                 }`}
-                aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
