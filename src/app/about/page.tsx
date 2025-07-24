@@ -15,13 +15,15 @@ export default function AboutPage() {
           </div>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-xl text-gray-600 text-left">
+              <p className="text-xl text-gray-600 text-left mb-6">
               At Hike in Himalaya, we believe that trekking is more than just a journey through the majestic landscapes of the Himalaya—it&apos;s an experience that connects you to nature, adventure, and the rich heritage of these mountains.
               </p>
-              <p className="text-xl text-gray-600 text-left">
+
+              <p className="text-xl text-gray-600 text-left mb-6">
               Our story began eight years ago, rooted in a deep love for the trails and peaks of the Himalayas. Founded by locals who grew up exploring these awe-inspiring landscapes, Hike in Himalaya started as a humble trek equipment rental service. Fueled by a passion for sharing the wonders of the region, we soon began guiding small groups on local treks, introducing them to hidden gems and untouched beauty that only seasoned locals know.
               </p>
-              <p className="text-xl text-gray-600 text-left">
+              
+              <p className="text-xl text-gray-600 text-left mb-6">
               As word spread, our adventure naturally evolved. What started as small group treks grew into a professional trekking service dedicated to offering personalized and authentic Himalayan experiences. Today, we are proud to provide not only expertly guided treks but also high-quality trekking equipment rentals to ensure you have a safe and memorable journey.
               </p>
             </div>
@@ -134,7 +136,7 @@ export default function AboutPage() {
           <p className="text-xl mb-6">
             Join us for an unforgettable journey through the world&apos;s most spectacular mountains.
           </p>
-          <div className="space-x-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
               href="/treks"
               className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"

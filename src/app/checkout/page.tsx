@@ -3,6 +3,9 @@
 import Layout from '../../../components/Layout'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import emailjs from '@emailjs/browser'
+import { emailConfig } from '../../../lib/emailConfig'
 
 interface CartItem {
   id: string
@@ -34,6 +37,7 @@ interface CustomerInfo {
 }
 
 export default function CheckoutPage() {
+  const router = useRouter()
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [timeRemaining, setTimeRemaining] = useState<{ [key: string]: number }>({})
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
@@ -141,34 +145,93 @@ export default function CheckoutPage() {
     setIsSubmitting(true)
 
     try {
-      // Here you would typically send the data to your backend
-      // const orderData = {
-      //   customer: customerInfo,
-      //   items: cartItems,
-      //   total: cartTotal,
-      //   timestamp: new Date().toISOString()
-      // }
+      // Prepare cart items for email
+      const cartItemsText = cartItems.map(item => {
+        if (item.type === 'trek') {
+          return `• ${item.name}
+  Location: ${item.location}
+  Duration: ${item.duration}
+  Difficulty: ${item.difficulty}
+  Month: ${item.selectedMonth}
+  Number of People: ${item.numberOfPeople}
+  Price per Person: ₹${item.pricePerPerson?.toLocaleString()}
+  Total: ${item.formattedPrice}
+`
+        } else {
+          return `• ${item.name}
+  Category: ${item.category}
+  Description: ${item.description}
+  Number of Days: ${item.numberOfDays}
+  Price per Day: ₹${item.pricePerDay?.toLocaleString()}
+  Total: ${item.formattedPrice}
+`
+        }
+      }).join('\n')
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Prepare email template parameters for admin notification
+      const adminTemplateParams = {
+        to_email: emailConfig.toEmail,
+        customer_name: `${customerInfo.firstName} ${customerInfo.surname}`,
+        customer_email: customerInfo.email,
+        customer_phone: customerInfo.phoneNumber,
+        cart_items: cartItemsText,
+        total_amount: `₹${cartTotal.toLocaleString()}`,
+        booking_date: new Date().toLocaleDateString('en-IN', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      }
+
+      // Prepare email template parameters for customer confirmation
+      const customerTemplateParams = {
+        to_email: customerInfo.email,
+        customer_name: `${customerInfo.firstName} ${customerInfo.surname}`,
+        customer_email: customerInfo.email,
+        customer_phone: customerInfo.phoneNumber,
+        cart_items: cartItemsText,
+        total_amount: `₹${cartTotal.toLocaleString()}`,
+        booking_date: new Date().toLocaleDateString('en-IN', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      }
+
+      // Initialize EmailJS
+      emailjs.init(emailConfig.publicKey)
+      
+      // Send admin notification email
+      await emailjs.send(
+        emailConfig.serviceId,
+        emailConfig.adminTemplateId,
+        adminTemplateParams
+      )
+
+      // Send customer confirmation email
+      await emailjs.send(
+        emailConfig.serviceId,
+        emailConfig.customerTemplateId,
+        customerTemplateParams
+      )
 
       // Clear cart after successful submission
       localStorage.removeItem('cart')
       
-      alert(`Thank you ${customerInfo.firstName}! Your booking request has been submitted. We will contact you shortly at ${customerInfo.email} to confirm your adventure.`)
+      // Store customer name and success flag in session storage for confirmation page
+      sessionStorage.setItem('bookingSuccess', 'true')
+      sessionStorage.setItem('customerName', `${customerInfo.firstName} ${customerInfo.surname}`)
       
-      // Reset form
-      setCustomerInfo({
-        firstName: '',
-        surname: '',
-        email: '',
-        phoneNumber: ''
-      })
-      
-      setCartItems([])
+      // Redirect to confirmation page
+      router.push('/confirmation')
 
-    } catch {
-      alert('There was an error submitting your booking. Please try again.')
+    } catch (error) {
+      console.error('Email sending failed:', error)
+      alert('There was an error submitting your booking request. Please try again or contact us directly at +91 98052 03783.')
     } finally {
       setIsSubmitting(false)
     }
@@ -498,7 +561,7 @@ export default function CheckoutPage() {
                     disabled={isSubmitting || cartItems.length === 0}
                     className="w-full bg-green-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? 'Processing...' : `Complete Booking - ₹${cartTotal.toLocaleString()}`}
+                    {isSubmitting ? 'Processing...' : `Send Booking Request - ₹${cartTotal.toLocaleString()}`}
                   </button>
                   <p className="text-xs text-gray-500 mt-2 text-center">
                     By completing this booking, you agree to our terms and conditions

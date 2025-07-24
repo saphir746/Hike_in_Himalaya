@@ -1,11 +1,20 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useState } from 'react'
+import CartButton from './CartButton'
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white text-black">
@@ -21,17 +30,81 @@ export default function Layout({ children }: LayoutProps) {
                 />
               </Link>
             </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/treks">Treks</Link>
-              <Link href="/gear">Gear Rental</Link>
-              <Link href="/about">About Us</Link>
-              <Link href="/contact">Contact</Link>
-              <Link href="/cart">Cart</Link>
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-4">
+              <Link href="/treks" className="hover:text-green-600 transition-colors">Treks</Link>
+              <Link href="/gear" className="hover:text-green-600 transition-colors">Gear Rental</Link>
+              <Link href="/about" className="hover:text-green-600 transition-colors">About Us</Link>
+              <Link href="/contact" className="hover:text-green-600 transition-colors">Contact</Link>
+              <Link href="/cart" className="hover:text-green-600 transition-colors">Cart</Link>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center">
+              <button
+                onClick={toggleMobileMenu}
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+                {isMobileMenuOpen ? (
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile menu, show/hide based on menu state */}
+          <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+              <Link 
+                href="/treks" 
+                className="block px-3 py-2 rounded-md text-base font-medium text-black hover:text-green-600 hover:bg-gray-50 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Treks
+              </Link>
+              <Link 
+                href="/gear" 
+                className="block px-3 py-2 rounded-md text-base font-medium text-black hover:text-green-600 hover:bg-gray-50 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Gear Rental
+              </Link>
+              <Link 
+                href="/about" 
+                className="block px-3 py-2 rounded-md text-base font-medium text-black hover:text-green-600 hover:bg-gray-50 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About Us
+              </Link>
+              <Link 
+                href="/contact" 
+                className="block px-3 py-2 rounded-md text-base font-medium text-black hover:text-green-600 hover:bg-gray-50 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </Link>
+              <Link 
+                href="/cart" 
+                className="block px-3 py-2 rounded-md text-base font-medium text-black hover:text-green-600 hover:bg-gray-50 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Cart
+              </Link>
             </div>
           </div>
         </div>
       </nav>
       <main>{children}</main>
+      <CartButton />
       <footer className="text-white" style={{backgroundColor: '#111827'}}>
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid md:grid-cols-4 gap-8">

@@ -55,6 +55,9 @@ export default function TreksPage() {
     month: 'all'
   })
 
+  // Mobile filter dropdown state
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
+
   // Get difficulty color
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -150,14 +153,34 @@ export default function TreksPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-center mb-6">Find Your Perfect Trek</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
+            
+            {/* Mobile Filter Button */}
+            <div className="md:hidden mb-4">
+              <button
+                onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
+                className="w-full flex items-center justify-between px-4 py-3 bg-gray-100 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+              >
+                <span className="font-medium text-black">Filters</span>
+                <svg 
+                  className={`w-5 h-5 transition-transform ${isMobileFilterOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Desktop Filters - Always visible on desktop */}
+            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
               {/* Region Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Region</label>
+                <label className="block text-sm font-medium text-black mb-2">Region</label>
                 <select
                   value={filters.region}
                   onChange={(e) => setFilters({ ...filters, region: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
                 >
                   <option value="all">All Regions</option>
                   {hikesData.metadata.regions.map((region) => (
@@ -168,11 +191,11 @@ export default function TreksPage() {
 
               {/* Difficulty Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Difficulty</label>
+                <label className="block text-sm font-medium text-black mb-2">Difficulty</label>
                 <select
                   value={filters.difficulty}
                   onChange={(e) => setFilters({ ...filters, difficulty: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
                 >
                   <option value="all">All Levels</option>
                   {Object.entries(hikesData.metadata.difficulty_distribution).map(([difficulty, count]) => (
@@ -183,11 +206,11 @@ export default function TreksPage() {
 
               {/* Price Range Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
+                <label className="block text-sm font-medium text-black mb-2">Price Range</label>
                 <select
                   value={filters.priceRange}
                   onChange={(e) => setFilters({ ...filters, priceRange: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
                 >
                   <option value="all">All Prices</option>
                   <option value="budget">Budget (Under ₹15,000)</option>
@@ -198,11 +221,11 @@ export default function TreksPage() {
 
               {/* Duration Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                <label className="block text-sm font-medium text-black mb-2">Duration</label>
                 <select
                   value={filters.durationRange}
                   onChange={(e) => setFilters({ ...filters, durationRange: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
                 >
                   <option value="all">All Durations</option>
                   <option value="short">Short (1-7 days)</option>
@@ -213,11 +236,96 @@ export default function TreksPage() {
 
               {/* Month Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Best Month</label>
+                <label className="block text-sm font-medium text-black mb-2">Best Month</label>
                 <select
                   value={filters.month}
                   onChange={(e) => setFilters({ ...filters, month: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+                >
+                  <option value="all">All Months</option>
+                  <option value="March">March</option>
+                  <option value="April">April</option>
+                  <option value="May">May</option>
+                  <option value="June">June</option>
+                  <option value="July">July</option>
+                  <option value="August">August</option>
+                  <option value="September">September</option>
+                  <option value="October">October</option>
+                  <option value="November">November</option>
+                  <option value="December">December</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Mobile Filters - Dropdown content */}
+            <div className={`md:hidden ${isMobileFilterOpen ? 'block' : 'hidden'} space-y-4 mb-6`}>
+              {/* Region Filter - Mobile */}
+              <div>
+                <label className="block text-sm font-medium text-black mb-2">Region</label>
+                <select
+                  value={filters.region}
+                  onChange={(e) => setFilters({ ...filters, region: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+                >
+                  <option value="all">All Regions</option>
+                  {hikesData.metadata.regions.map((region) => (
+                    <option key={region} value={region}>{region}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Difficulty Filter - Mobile */}
+              <div>
+                <label className="block text-sm font-medium text-black mb-2">Difficulty</label>
+                <select
+                  value={filters.difficulty}
+                  onChange={(e) => setFilters({ ...filters, difficulty: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+                >
+                  <option value="all">All Levels</option>
+                  {Object.entries(hikesData.metadata.difficulty_distribution).map(([difficulty, count]) => (
+                    <option key={difficulty} value={difficulty}>{difficulty} ({count})</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Price Range Filter - Mobile */}
+              <div>
+                <label className="block text-sm font-medium text-black mb-2">Price Range</label>
+                <select
+                  value={filters.priceRange}
+                  onChange={(e) => setFilters({ ...filters, priceRange: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+                >
+                  <option value="all">All Prices</option>
+                  <option value="budget">Budget (Under ₹15,000)</option>
+                  <option value="mid">Mid-range (₹15,000 - ₹30,000)</option>
+                  <option value="premium">Premium (Above ₹30,000)</option>
+                </select>
+              </div>
+
+              {/* Duration Filter - Mobile */}
+              <div>
+                <label className="block text-sm font-medium text-black mb-2">Duration</label>
+                <select
+                  value={filters.durationRange}
+                  onChange={(e) => setFilters({ ...filters, durationRange: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+                >
+                  <option value="all">All Durations</option>
+                  <option value="short">Short (1-7 days)</option>
+                  <option value="medium">Medium (8-12 days)</option>
+                  <option value="long">Long (13+ days)</option>
+                </select>
+              </div>
+
+              {/* Month Filter - Mobile */}
+              <div>
+                <label className="block text-sm font-medium text-black mb-2">Best Month</label>
+                <select
+                  value={filters.month}
+                  onChange={(e) => setFilters({ ...filters, month: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
                 >
                   <option value="all">All Months</option>
                   <option value="March">March</option>
@@ -237,7 +345,7 @@ export default function TreksPage() {
             {/* Filter Actions and Results */}
             <div className="flex flex-wrap justify-between items-center">
               <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-black">
                   Showing {filteredTreks.length} of {hikesData.metadata.total_activities} treks
                 </span>
                 <button
