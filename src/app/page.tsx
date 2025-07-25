@@ -16,6 +16,12 @@ export default function Home() {
     '/images/carousel/carouselHIH3.jpg'
   ]
 
+  const mobileCarouselImages = [
+    '/images/carousel/carouselHIH1_mobile.jpg',
+    '/images/carousel/carouselHIH2_mobile.jpg',
+    '/images/carousel/carouselHIH3_mobile.jpg'
+  ]
+
   // Auto-advance slides
   useEffect(() => {
     const timer = setInterval(() => {
@@ -34,8 +40,8 @@ export default function Home() {
   }
   return (
     <Layout>
-      {/* Step 1: Full width carousel - no overlay yet */}
-      <section className="relative w-full h-96 md:h-[500px]">
+      {/* Desktop Carousel - Hidden on mobile */}
+      <section className="relative w-full h-96 md:h-[500px] hidden md:block">
         <div className="relative w-full h-full">
           <img 
             src={carouselImages[currentSlide]}
@@ -43,17 +49,17 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           
-          {/* Simple positioned buttons - no fancy styling yet */}
+          {/* Simple positioned buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 bg-blue-500 text-white px-3 py-2 rounded z-10"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 z-10"
           >
             ←
           </button>
           
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 bg-blue-500 text-white px-3 py-2 rounded z-10"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 z-10"
           >
             →
           </button>
@@ -64,8 +70,47 @@ export default function Home() {
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full ${
-                  index === currentSlide ? 'bg-white' : 'bg-gray-400'
+                className={`w-4 h-4 rounded-full border-2 border-white ${
+                  index === currentSlide ? 'bg-white' : 'bg-transparent'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile Carousel - Visible only on mobile */}
+      <section className="relative w-full h-64 md:hidden">
+        <div className="relative w-full h-full">
+          <img 
+            src={mobileCarouselImages[currentSlide]}
+            alt={`HikeinHimalaya Mobile Adventure ${currentSlide + 1}`}
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Mobile carousel buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 z-10"
+          >
+            ←
+          </button>
+          
+          <button
+            onClick={nextSlide}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 z-10"
+          >
+            →
+          </button>
+          
+          {/* Mobile carousel dots */}
+          <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+            {mobileCarouselImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full border-2 border-white ${
+                  index === currentSlide ? 'bg-white' : 'bg-transparent'
                 }`}
               />
             ))}
@@ -92,7 +137,7 @@ export default function Home() {
               </Link>
               <Link 
                 href="/gear"
-                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition-colors"
+                className="bg-white text-green-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
               >
                 Rent Gear
               </Link>
