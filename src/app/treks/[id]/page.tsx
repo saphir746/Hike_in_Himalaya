@@ -230,6 +230,7 @@ export default function TrekDetailPage() {
     // Split content into lines and process
     const lines = content.split('\n')
     const processedLines: string[] = []
+    let currentSection = ''
     
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim()
@@ -246,6 +247,7 @@ export default function TrekDetailPage() {
         processedLines.push(`<h1 class="text-4xl font-bold mb-6 text-gray-900">${title}</h1>`)
       } else if (line.startsWith('## ')) {
         const title = line.substring(3)
+        currentSection = title.toLowerCase()
         const isItinerary = title.toLowerCase().includes('itinerary')
         if (isItinerary) {
           processedLines.push(`
@@ -268,22 +270,45 @@ export default function TrekDetailPage() {
         const title = line.substring(4)
         processedLines.push(`<h3 class="text-2xl font-bold mb-4 text-gray-900">${title}</h3>`)
       } else if (line.startsWith('Day ')) {
-        // Enhanced formatting for day entries in Brief Itinerary
         const dayNumber = line.match(/Day (\d+)/)?.[1] || ''
         const dayTitle = line.substring(line.indexOf(':') + 1).trim()
-        processedLines.push(`
-          <div class="flex items-start gap-4 mt-6 mb-4 p-4 rounded-xl border-l-4 border-blue-500 shadow-sm" style="background-color: #c1c9ceff">
-            <div class="flex-shrink-0">
-              <div class="w-10 h-10 text-white rounded-full flex items-center justify-center font-bold text-sm" style="background-color: #111827ff">
-                ${dayNumber}
+        
+        // Different formatting for Brief vs Detailed Itinerary
+        if (currentSection.includes('brief')) {
+          // Narrow banner with description text to the right for Brief Itinerary
+          processedLines.push(`
+            <div class="flex items-start gap-4 mt-4 mb-3">
+              <div class="flex items-center gap-3 p-3 rounded-lg border-l-4 shadow-sm" style="background-color: #c1c9ceff; border-left-color: #4a5568; width: fit-content;">
+                <div class="flex-shrink-0">
+                  <div class="w-8 h-8 text-white rounded-full flex items-center justify-center font-bold text-xs" style="background-color: #111827ff">
+                    ${dayNumber}
+                  </div>
+                </div>
+                <div>
+                  <span class="font-bold text-gray-900 text-base whitespace-nowrap">Day ${dayNumber}</span>
+                </div>
+              </div>
+              <div class="flex-1 pt-3">
+                <p class="text-gray-700 font-medium">${dayTitle}</p>
               </div>
             </div>
-            <div class="flex-1">
-              <h4 class="font-bold text-gray-900 text-lg mb-1">Day ${dayNumber}</h4>
-              <p class="text-gray-700 font-medium">${dayTitle}</p>
+          `)
+        } else {
+          // Original larger format for Detailed Itinerary
+          processedLines.push(`
+            <div class="flex items-start gap-4 mt-6 mb-4 p-4 rounded-xl border-l-4 shadow-sm" style="background-color: #c1c9ceff; border-left-color: #4a5568;">
+              <div class="flex-shrink-0">
+                <div class="w-10 h-10 text-white rounded-full flex items-center justify-center font-bold text-sm" style="background-color: #111827ff">
+                  ${dayNumber}
+                </div>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-bold text-gray-900 text-lg mb-1">Day ${dayNumber}</h4>
+                <p class="text-gray-700 font-medium">${dayTitle}</p>
+              </div>
             </div>
-          </div>
-        `)
+          `)
+        }
       } else {
         // Regular paragraphs
         processedLines.push(`<p class="text-gray-600 leading-relaxed mb-4">${line}</p>`)
@@ -585,28 +610,13 @@ export default function TrekDetailPage() {
                   </div>
                 </div>
 
-                {/* Equipment Rental CTA */}
-                <div className="mt-6 p-4 bg-blue-100 rounded-lg border border-blue-200">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h5 className="font-semibold text-blue-800">Don&apos;t have the gear?</h5>
-                      <p className="text-blue-700 text-sm">Rent professional equipment from our gear collection.</p>
-                    </div>
-                    <Link
-                      href="/gear"
-                      className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
-                    >
-                      Rent Gear
-                    </Link>
-                  </div>
-                </div>
               </div>
             </div>
 
             {/* Sidebar */}
             <div>
               {/* Booking Card */}
-              <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-lg sticky top-8">
+              <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-lg">
                 <div className="text-center mb-6">
                   <div className="text-3xl font-bold text-green-600 mb-2">
                     {trek.price.formatted}
@@ -657,20 +667,20 @@ export default function TrekDetailPage() {
                   <p className="text-sm text-gray-600 mb-2">Need help planning?</p>
                   <p className="text-green-600 font-semibold">+91 98052 03783</p>
                 </div>
-              </div>
 
-              {/* Gear Rental CTA */}
-              <div className="mt-8 bg-blue-50 p-6 rounded-lg">
-                <h4 className="text-lg font-semibold mb-2">Need Gear?</h4>
-                <p className="text-gray-600 text-sm mb-4">
-                  Rent professional trekking equipment for your adventure.
-                </p>
-                <Link
-                  href="/gear"
-                  className="bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors inline-block"
-                >
-                  Browse Gear
-                </Link>
+                {/* Gear Rental CTA */}
+                <div className="mt-6 pt-6 border-t bg-blue-50 p-4 rounded-lg">
+                  <h4 className="text-lg font-semibold mb-2">Need Gear?</h4>
+                  <p className="text-gray-600 text-sm mb-4">
+                    Rent professional trekking equipment for your adventure.
+                  </p>
+                  <Link
+                    href="/gear"
+                    className="bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors inline-block"
+                  >
+                    Browse Gear
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

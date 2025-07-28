@@ -605,7 +605,8 @@ function TreksPageContent() {
                     </div>
                     <Link 
                       href={`/treks/${createSlug(trek.name)}`}
-                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                      className="px-4 py-2 rounded-lg transition-colors text-sm font-medium"
+                      style={{ backgroundColor: '#c1c9ceff', color: '#000000' }}
                     >
                       View Details
                     </Link>

@@ -32,4 +32,34 @@ body {
   .text-white, .text-gray-100, .text-gray-200, .text-gray-300, .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900 {
     color: #000000 !important;
   }
+  
+  /* Exception for banner text box - keep white text */
+  .relative.h-96 .text-white {
+    color: #ffffff !important;
+  }
+  
+  /* Exception for Popular Categories section - keep white text */
+  section[style*="background-color: rgb(17, 24, 39)"] h2,
+  section[style*="background-color: rgb(17, 24, 39)"] p {
+    color: #ffffff !important;
+  }
+  
+  /* Footer text color - light grey */
+  footer * {
+    color: #c1c9ceff !important;
+  }
+  
+  /* Exception for day number circles - keep white text */
+  div[style*="background-color: rgb(17, 24, 39)"].rounded-full {
+    color: #ffffff !important;
+  }
+  
+  /* Booking confirmation page - What Happens Next section */
+  .bg-blue-50 .bg-blue-600 {
+    background-color: #111827ff !important;
+  }
+  
+  .bg-blue-50 .text-blue-800 span {
+    color: #c1c9ceff !important;
+  }
 }
