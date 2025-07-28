@@ -88,4 +88,23 @@ body {
   .bg-gray-50 .bg-blue-600 {
     background-color: #c1c9ceff !important;
   }
+  
+  /* Individual trek page - Hero section styles */
+  /* Trek price - keep white */
+  .relative.h-96 .text-3xl.font-bold {
+    color: #ffffff !important;
+  }
+  
+  /* Trek location and duration badges - force black text */
+  .relative.h-96 .bg-white.bg-opacity-20 {
+    color: #000000 !important;
+  }
+  
+  /* Trek difficulty badge - preserve difficulty colors */
+  .relative.h-96 .text-green-600.bg-green-100,
+  .relative.h-96 .text-yellow-600.bg-yellow-100,
+  .relative.h-96 .text-red-600.bg-red-100,
+  .relative.h-96 .text-gray-600.bg-gray-100 {
+    color: inherit !important;
+  }
 }
