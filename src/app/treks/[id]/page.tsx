@@ -275,15 +275,10 @@ export default function TrekDetailPage() {
         
         // Different formatting for Brief vs Detailed Itinerary
         if (currentSection.includes('brief')) {
-          // Narrow banner with description text to the right for Brief Itinerary
+          // Narrow banner with description text to the right for Brief Itinerary (no numbered dial)
           processedLines.push(`
             <div class="flex items-start gap-4 mt-4 mb-3">
-              <div class="flex items-center gap-3 p-3 rounded-lg border-l-4 shadow-sm" style="background-color: #c1c9ceff; border-left-color: #4a5568; width: fit-content;">
-                <div class="flex-shrink-0">
-                  <div class="w-8 h-8 text-white rounded-full flex items-center justify-center font-bold text-xs" style="background-color: #111827ff">
-                    ${dayNumber}
-                  </div>
-                </div>
+              <div class="flex items-center p-3 rounded-lg border-l-4 shadow-sm" style="background-color: #c1c9ceff; border-left-color: #4a5568; width: fit-content;">
                 <div>
                   <span class="font-bold text-gray-900 text-base whitespace-nowrap">Day ${dayNumber}</span>
                 </div>
@@ -294,14 +289,9 @@ export default function TrekDetailPage() {
             </div>
           `)
         } else {
-          // Original larger format for Detailed Itinerary
+          // Larger format for Detailed Itinerary (no numbered dial)
           processedLines.push(`
             <div class="flex items-start gap-4 mt-6 mb-4 p-4 rounded-xl border-l-4 shadow-sm" style="background-color: #c1c9ceff; border-left-color: #4a5568;">
-              <div class="flex-shrink-0">
-                <div class="w-10 h-10 text-white rounded-full flex items-center justify-center font-bold text-sm" style="background-color: #111827ff">
-                  ${dayNumber}
-                </div>
-              </div>
               <div class="flex-1">
                 <h4 class="font-bold text-gray-900 text-lg mb-1">Day ${dayNumber}</h4>
                 <p class="text-gray-700 font-medium">${dayTitle}</p>

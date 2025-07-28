@@ -44,9 +44,15 @@ body {
     color: #ffffff !important;
   }
   
-  /* Footer text color - light grey */
-  footer * {
-    color: #c1c9ceff !important;
+  /* Footer text color - white for all elements */
+  footer *,
+  footer p,
+  footer span,
+  footer a,
+  footer h3,
+  footer .text-gray-300,
+  footer .text-gray-400 {
+    color: #ffffff !important;
   }
   
   /* Exception for day number circles - keep white text */

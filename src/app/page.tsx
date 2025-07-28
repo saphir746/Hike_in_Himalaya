@@ -743,9 +743,11 @@ export default function Home() {
                 Browse Gear
               </Link>
             </div>
-            <div className="h-96 bg-gradient-to-r from-gray-400 to-gray-600 rounded-lg flex items-center justify-center">
-              <span className="text-white text-lg">Gear Image Placeholder</span>
-            </div>
+            <img 
+              src="/images/gear/multiple_gear_things.jpeg" 
+              alt="Professional trekking gear" 
+              className="w-full h-96 object-cover rounded-lg shadow-lg"
+            />
           </div>
         </div>
       </section>
