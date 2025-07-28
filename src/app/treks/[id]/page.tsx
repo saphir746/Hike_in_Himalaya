@@ -4,7 +4,7 @@ import Layout from '../../../../components/Layout'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { useParams } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import hikesData from '../../../../Hikes.json'
 
 interface Trek {
@@ -19,6 +19,8 @@ interface Trek {
     formatted: string
   }
   difficulty: string
+  altitude: string
+  suitability: string
 }
 
 export default function TrekDetailPage() {
@@ -58,6 +60,29 @@ export default function TrekDetailPage() {
       default: return 'text-gray-600 bg-gray-100'
     }
   }
+
+  // State for trek content
+  const [trekContent, setTrekContent] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Load trek content from Treks_descr file
+  useEffect(() => {
+    const loadTrekContent = async () => {
+      try {
+        const response = await fetch(`/api/trek-content/${trek.id}`)
+        if (response.ok) {
+          const content = await response.text()
+          setTrekContent(content)
+        }
+      } catch (error) {
+        console.error('Error loading trek content:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadTrekContent()
+  }, [trek.id])
 
   // Trek content including base content from markdown file
   const getDetailedInfo = (trekName: string) => {
@@ -200,15 +225,116 @@ export default function TrekDetailPage() {
     })
   }
 
+  // Function to format trek content for display
+  const formatTrekContent = (content: string) => {
+    // Split content into lines and process
+    const lines = content.split('\n')
+    const processedLines: string[] = []
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim()
+      
+      // Skip empty lines
+      if (!line) {
+        processedLines.push('<br>')
+        continue
+      }
+      
+      // Handle headings
+      if (line.startsWith('# ')) {
+        const title = line.substring(2)
+        processedLines.push(`<h1 class="text-4xl font-bold mb-6 text-gray-900">${title}</h1>`)
+      } else if (line.startsWith('## ')) {
+        const title = line.substring(3)
+        const isItinerary = title.toLowerCase().includes('itinerary')
+        if (isItinerary) {
+          processedLines.push(`
+            <div class="mb-8 mt-8">
+              <h2 class="text-3xl font-bold mb-2 text-gray-900 flex items-center gap-3">
+                <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                  </svg>
+                </div>
+                ${title}
+              </h2>
+              <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mb-6"></div>
+            </div>
+          `)
+        } else {
+          processedLines.push(`<h2 class="text-3xl font-bold mb-6 text-gray-900">${title}</h2>`)
+        }
+      } else if (line.startsWith('### ')) {
+        const title = line.substring(4)
+        processedLines.push(`<h3 class="text-2xl font-bold mb-4 text-gray-900">${title}</h3>`)
+      } else if (line.startsWith('Day ')) {
+        // Enhanced formatting for day entries in Brief Itinerary
+        const dayNumber = line.match(/Day (\d+)/)?.[1] || ''
+        const dayTitle = line.substring(line.indexOf(':') + 1).trim()
+        processedLines.push(`
+          <div class="flex items-start gap-4 mt-6 mb-4 p-4 rounded-xl border-l-4 border-blue-500 shadow-sm" style="background-color: #c1c9ceff">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 text-white rounded-full flex items-center justify-center font-bold text-sm" style="background-color: #111827ff">
+                ${dayNumber}
+              </div>
+            </div>
+            <div class="flex-1">
+              <h4 class="font-bold text-gray-900 text-lg mb-1">Day ${dayNumber}</h4>
+              <p class="text-gray-700 font-medium">${dayTitle}</p>
+            </div>
+          </div>
+        `)
+      } else {
+        // Regular paragraphs
+        processedLines.push(`<p class="text-gray-600 leading-relaxed mb-4">${line}</p>`)
+      }
+    }
+    
+    return processedLines.join('')
+  }
+
+  // Function to get matching image for the trek
+  const getTrekImage = (trekName: string) => {
+    const imageMap: { [key: string]: string } = {
+      'Buran Ghati Trek': '/images/treks/buran-ghati3.jpg',
+      'Chandranahan Lake Trek': '/images/treks/chandernahan3.jpg',
+      'Pin Parvati Pass': '/images/treks/pin-parvati6.jpg',
+      'Rupin Pass Trek': '/images/treks/rupin-pass9.jpg',
+      'Kedarkantha Trek': '/images/treks/Kedarkantha-Trek.jpg',
+      'Pin Bhaba Pass Trek': '/images/treks/pin-bhaba.png',
+      'Hampta Pass Trek': '/images/treks/hamptaPass.jpg',
+      'Friendship Peak Trek': '/images/treks/friendship-peak.jpg',
+      'Kashmir Great Lakes Trek': '/images/treks/Kashmir-Great-Lakes.jpg',
+      'Parang La Expedition': '/images/treks/parang-la-trek.jpg',
+      'Bhrigu Lake Trek': '/images/treks/bhrigu-lake.png',
+      'Kang Yatse II Peak EXPEDITION': '/images/treks/kang-yatse.jpg',
+      'Everest Base Camp Trek': '/images/treks/EverestBaseCamp.jpg',
+      'Annapurna Circuit Trek': '/images/treks/AnnapurnaBaseCamp.png',
+      'Black Peak Expedition': '/images/treks/BlackPeakExpedition.png'
+    }
+    
+    return imageMap[trekName] || '/images/treks/buran-ghati3.jpg'
+  }
+
   const detailedInfo = getDetailedInfo(trek.name)
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative h-96 bg-gradient-to-r from-green-600 to-blue-600">
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+      <section className="relative h-96 bg-gray-200">
+        <img 
+          src={getTrekImage(trek.name)} 
+          alt={trek.name}
+          className="absolute inset-0 w-full h-full object-cover"
+          onLoad={() => console.log(`Successfully loaded banner image for ${trek.name}: ${getTrekImage(trek.name)}`)}
+          onError={(e) => {
+            console.error(`Failed to load banner image for ${trek.name}:`, getTrekImage(trek.name))
+            const target = e.target as HTMLImageElement
+            target.src = '/images/treks/buran-ghati3.jpg'
+          }}
+        />
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
-          <div className="text-white">
+          <div className="text-white p-6 rounded-2xl" style={{ backgroundColor: '#111827b3' }}>
             <div className="mb-4">
               <Link href="/treks" className="text-white hover:text-gray-200 text-sm">
                 ← Back to All Treks
@@ -219,10 +345,10 @@ export default function TrekDetailPage() {
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(trek.difficulty)}`}>
                 {trek.difficulty}
               </span>
-              <span className="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm">
+              <span className="bg-white bg-opacity-20 text-black px-3 py-1 rounded-full text-sm">
                 {trek.location}
               </span>
-              <span className="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm">
+              <span className="bg-white bg-opacity-20 text-black px-3 py-1 rounded-full text-sm">
                 {trek.duration}
               </span>
             </div>
@@ -237,27 +363,91 @@ export default function TrekDetailPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-2">
-              {/* Overview */}
+              {/* Trek Information */}
               <div className="mb-12">
-                <h2 className="text-3xl font-bold mb-6">Overview</h2>
-                <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                  {detailedInfo.overview}
-                </p>
+                <h2 className="text-3xl font-bold mb-6">Trek Information</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                    <div className="flex items-center mb-3">
+                      <svg className="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <h3 className="text-lg font-semibold text-blue-800">Duration</h3>
+                    </div>
+                    <p className="text-gray-700 font-medium">{trek.duration}</p>
+                  </div>
+                  
+                  <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+                    <div className="flex items-center mb-3">
+                      <svg className="w-6 h-6 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                      <h3 className="text-lg font-semibold text-green-800">Group Size</h3>
+                    </div>
+                    <p className="text-gray-700 font-medium">{trek.group_size}</p>
+                  </div>
+                  
+                  <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
+                    <div className="flex items-center mb-3">
+                      <svg className="w-6 h-6 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <h3 className="text-lg font-semibold text-purple-800">Maximum Altitude</h3>
+                    </div>
+                    <p className="text-gray-700 font-medium">{trek.altitude}</p>
+                  </div>
+                  
+                  <div className="bg-orange-50 p-6 rounded-lg border border-orange-200">
+                    <div className="flex items-center mb-3">
+                      <svg className="w-6 h-6 text-orange-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      <h3 className="text-lg font-semibold text-orange-800">Suitability</h3>
+                    </div>
+                    <p className="text-gray-700 font-medium">{trek.suitability}</p>
+                  </div>
+                </div>
               </div>
 
-              {/* Trek Highlights */}
+              {/* Trek Content from Treks_descr */}
               <div className="mb-12">
-                <h3 className="text-2xl font-bold mb-6">Trek Highlights</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {detailedInfo.highlights.map((highlight, index) => (
-                    <div key={index} className="flex items-start">
-                      <svg className="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-700">{highlight}</span>
+                {isLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <span className="ml-2 text-gray-600">Loading trek details...</span>
+                  </div>
+                ) : trekContent ? (
+                  <div className="max-w-none">
+                    <div 
+                      className="trek-content"
+                      dangerouslySetInnerHTML={{ __html: formatTrekContent(trekContent) }}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    {/* Fallback to original content if no file found */}
+                    <div className="mb-12">
+                      <h2 className="text-3xl font-bold mb-6">Overview</h2>
+                      <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                        {detailedInfo.overview}
+                      </p>
                     </div>
-                  ))}
-                </div>
+
+                    <div className="mb-12">
+                      <h3 className="text-2xl font-bold mb-6">Trek Highlights</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {detailedInfo.highlights.map((highlight, index) => (
+                          <div key={index} className="flex items-start">
+                            <svg className="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span className="text-gray-700">{highlight}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* What&apos;s Included */}
@@ -502,7 +692,13 @@ export default function TrekDetailPage() {
                 
                 return (
                   <div key={similarTrek.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="h-32 bg-gradient-to-r from-green-400 to-blue-500"></div>
+                    <div className="h-32 relative overflow-hidden">
+                      <img 
+                        src={getTrekImage(similarTrek.name)} 
+                        alt={similarTrek.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div className="p-4">
                       <h3 className="text-lg font-semibold mb-2">{similarTrek.name}</h3>
                       <p className="text-gray-600 text-sm mb-3">{similarTrek.duration} • {similarTrek.location}</p>

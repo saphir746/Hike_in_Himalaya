@@ -11,7 +11,9 @@
         "currency": "INR",
         "formatted": "₹17,000"
       },
-      "difficulty": "Challenging"
+      "difficulty": "Challenging",
+      "altitude": "4,724m",
+      "suitability": "13 to 62 years, suitable for fit beginners"
     },
     {
       "id": 2,
@@ -24,7 +26,9 @@
         "currency": "INR",
         "formatted": "₹10,500"
       },
-      "difficulty": "Moderate"
+      "difficulty": "Moderate",
+      "altitude": "4,260m",
+      "suitability": "13 to 62 years"
     },
     {
       "id": 3,
@@ -37,7 +41,9 @@
         "currency": "INR",
         "formatted": "₹49,000"
       },
-      "difficulty": "Challenging"
+      "difficulty": "Challenging",
+      "altitude": "5,319m",
+      "suitability": "Intermediate trekkers"
     },
     {
       "id": 4,
@@ -50,7 +56,9 @@
         "currency": "INR",
         "formatted": "₹17,000"
       },
-      "difficulty": "Moderate"
+      "difficulty": "Moderate",
+      "altitude": "4,650m",
+      "suitability": "13 to 62 years"
     },
     {
       "id": 5,
@@ -63,7 +71,9 @@
         "currency": "INR",
         "formatted": "₹7,500"
       },
-      "difficulty": "Easy"
+      "difficulty": "Easy",
+      "altitude": "3,810m",
+      "suitability": "Beginners"
     },
     {
       "id": 6,
@@ -76,7 +86,9 @@
         "currency": "INR",
         "formatted": "₹19,000"
       },
-      "difficulty": "Challenging"
+      "difficulty": "Challenging",
+      "altitude": "4,865m",
+      "suitability": "13 to 55 years"
     },
     {
       "id": 7,
@@ -89,7 +101,9 @@
         "currency": "INR",
         "formatted": "₹11,500"
       },
-      "difficulty": "Moderate"
+      "difficulty": "Moderate",
+      "altitude": "4,270m",
+      "suitability": "13 to 62 years"
     },
     {
       "id": 8,
@@ -102,7 +116,9 @@
         "currency": "INR",
         "formatted": "₹34,400"
       },
-      "difficulty": "Challenging"
+      "difficulty": "Challenging",
+      "altitude": "5,289m",
+      "suitability": "Intermediate to Advanced trekkers"
     },
     {
       "id": 9,
@@ -115,7 +131,9 @@
         "currency": "INR",
         "formatted": "₹17,500"
       },
-      "difficulty": "Challenging"
+      "difficulty": "Challenging",
+      "altitude": "4,350m",
+      "suitability": "12 - 62 years"
     },
     {
       "id": 10,
@@ -128,7 +146,9 @@
         "currency": "INR",
         "formatted": "₹39,000"
       },
-      "difficulty": "Challenging"
+      "difficulty": "Challenging",
+      "altitude": "5,578m",
+      "suitability": "Advanced trekkers"
     },
     {
       "id": 11,
@@ -141,7 +161,9 @@
         "currency": "INR",
         "formatted": "₹5,990"
       },
-      "difficulty": "Moderate"
+      "difficulty": "Moderate",
+      "altitude": "4,250m",
+      "suitability": "Intermediate trekkers"
     },
     {
       "id": 12,
@@ -154,7 +176,9 @@
         "currency": "INR",
         "formatted": "₹58,000"
       },
-      "difficulty": "Challenging"
+      "difficulty": "Challenging",
+      "altitude": "6,153m",
+      "suitability": "Advanced trekkers"
     },
     {
       "id": 13,
@@ -167,7 +191,9 @@
         "currency": "INR",
         "formatted": "₹49,500"
       },
-      "difficulty": "Challenging"
+      "difficulty": "Challenging",
+      "altitude": "5,364m",
+      "suitability": "Advanced trekkers"
     },
     {
       "id": 14,
@@ -180,7 +206,9 @@
         "currency": "INR",
         "formatted": "₹23,000"
       },
-      "difficulty": "Moderate"
+      "difficulty": "Moderate",
+      "altitude": "5,416m",
+      "suitability": "Intermediate trekkers"
     },
     {
       "id": 15,
@@ -193,7 +221,9 @@
         "currency": "INR",
         "formatted": "₹85,000"
       },
-      "difficulty": "Challenging"
+      "difficulty": "Challenging",
+      "altitude": "6,166m",
+      "suitability": "Advanced trekkers"
     }
   ],
   "metadata": {

@@ -2,7 +2,8 @@
 
 import Layout from '../../../components/Layout'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import hikesData from '../../../Hikes.json'
 
 interface Trek {
@@ -17,6 +18,8 @@ interface Trek {
     formatted: string
   }
   difficulty: string
+  altitude: string
+  suitability: string
 }
 
 // Helper function to determine best trekking months based on location and difficulty
@@ -45,15 +48,36 @@ const getBestTrekkingMonths = (location: string, difficulty: string): string[] =
   return months
 }
 
-export default function TreksPage() {
+function TreksPageContent() {
+  const searchParams = useSearchParams()
+  
   // Filter state
   const [filters, setFilters] = useState({
     region: 'all',
     difficulty: 'all',
     priceRange: 'all',
     durationRange: 'all',
-    month: 'all'
+    month: 'all',
+    altitude: 'all'
   })
+
+  // Apply URL parameters on component mount
+  useEffect(() => {
+    const urlFilters = {
+      region: searchParams.get('region') || 'all',
+      difficulty: searchParams.get('difficulty') || 'all',
+      priceRange: searchParams.get('priceRange') || 'all',
+      durationRange: searchParams.get('durationRange') || 'all',
+      month: searchParams.get('month') || 'all',
+      altitude: searchParams.get('altitude') || 'all'
+    }
+    
+    // Only update if there are actual URL parameters
+    const hasUrlParams = Object.values(urlFilters).some(value => value !== 'all')
+    if (hasUrlParams) {
+      setFilters(urlFilters)
+    }
+  }, [searchParams])
 
   // Mobile filter dropdown state
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
@@ -73,6 +97,29 @@ export default function TreksPage() {
     return name.toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^a-z0-9-]/g, '')
+  }
+
+  // Function to get matching image for the trek
+  const getTrekImage = (trekName: string) => {
+    const imageMap: { [key: string]: string } = {
+      'Buran Ghati Trek': '/images/treks/buran-ghati3.jpg',
+      'Chandranahan Lake Trek': '/images/treks/chandernahan3.jpg',
+      'Pin Parvati Pass': '/images/treks/pin-parvati6.jpg',
+      'Rupin Pass Trek': '/images/treks/rupin-pass9.jpg',
+      'Kedarkantha Trek': '/images/treks/Kedarkantha-Trek.jpg',
+      'Pin Bhaba Pass Trek': '/images/treks/pin-bhaba.png',
+      'Hampta Pass Trek': '/images/treks/hamptaPass.jpg',
+      'Friendship Peak Trek': '/images/treks/friendship-peak.jpg',
+      'Kashmir Great Lakes Trek': '/images/treks/Kashmir-Great-Lakes.jpg',
+      'Parang La Expedition': '/images/treks/parang-la-trek.jpg',
+      'Bhrigu Lake Trek': '/images/treks/bhrigu-lake.png',
+      'Kang Yatse II Peak EXPEDITION': '/images/treks/kang-yatse.jpg',
+      'Everest Base Camp Trek': '/images/treks/EverestBaseCamp.jpg',
+      'Annapurna Circuit Trek': '/images/treks/AnnapurnaBaseCamp.png',
+      'Black Peak Expedition': '/images/treks/BlackPeakExpedition.png'
+    }
+    
+    return imageMap[trekName] || '/images/treks/buran-ghati3.jpg'
   }
 
   // Filter function
@@ -128,6 +175,22 @@ export default function TreksPage() {
         }
       }
 
+      // Altitude filter
+      if (filters.altitude !== 'all') {
+        const altitudeValue = parseInt(trek.altitude.replace(/[^0-9]/g, ''))
+        switch (filters.altitude) {
+          case 'low':
+            if (altitudeValue > 4000) return false
+            break
+          case 'medium':
+            if (altitudeValue <= 4000 || altitudeValue > 5500) return false
+            break
+          case 'high':
+            if (altitudeValue <= 5500) return false
+            break
+        }
+      }
+
       return true
     })
   }
@@ -141,13 +204,13 @@ export default function TreksPage() {
       difficulty: 'all',
       priceRange: 'all',
       durationRange: 'all',
-      month: 'all'
+      month: 'all',
+      altitude: 'all'
     })
   }
 
   return (
-    <Layout>
-
+    <>
       {/* Filters Section */}
       <section className="py-8 bg-white border-b">
         <div className="max-w-7xl mx-auto px-4">
@@ -173,7 +236,7 @@ export default function TreksPage() {
             </div>
 
             {/* Desktop Filters - Always visible on desktop */}
-            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
+            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
               {/* Region Filter */}
               <div>
                 <label className="block text-sm font-medium text-black mb-2">Region</label>
@@ -253,6 +316,21 @@ export default function TreksPage() {
                   <option value="October">October</option>
                   <option value="November">November</option>
                   <option value="December">December</option>
+                </select>
+              </div>
+
+              {/* Altitude Filter */}
+              <div>
+                <label className="block text-sm font-medium text-black mb-2">Altitude</label>
+                <select
+                  value={filters.altitude}
+                  onChange={(e) => setFilters({ ...filters, altitude: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+                >
+                  <option value="all">All Altitudes</option>
+                  <option value="low">Low (Under 4,000m)</option>
+                  <option value="medium">Medium (4,000m - 5,500m)</option>
+                  <option value="high">High (Above 5,500m)</option>
                 </select>
               </div>
             </div>
@@ -340,6 +418,21 @@ export default function TreksPage() {
                   <option value="December">December</option>
                 </select>
               </div>
+
+              {/* Altitude Filter - Mobile */}
+              <div>
+                <label className="block text-sm font-medium text-black mb-2">Altitude</label>
+                <select
+                  value={filters.altitude}
+                  onChange={(e) => setFilters({ ...filters, altitude: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+                >
+                  <option value="all">All Altitudes</option>
+                  <option value="low">Low (Under 4,000m)</option>
+                  <option value="medium">Medium (4,000m - 5,500m)</option>
+                  <option value="high">High (Above 5,500m)</option>
+                </select>
+              </div>
             </div>
 
             {/* Filter Actions and Results */}
@@ -413,6 +506,17 @@ export default function TreksPage() {
                     </button>
                   </span>
                 )}
+                {filters.altitude !== 'all' && (
+                  <span className="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">
+                    {filters.altitude === 'low' ? 'Low Altitude' : filters.altitude === 'medium' ? 'Medium Altitude' : 'High Altitude'}
+                    <button
+                      onClick={() => setFilters({ ...filters, altitude: 'all' })}
+                      className="ml-1 text-indigo-600 hover:text-indigo-800"
+                    >
+                      ×
+                    </button>
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -445,10 +549,20 @@ export default function TreksPage() {
               {filteredTreks.map((trek: Trek) => (
               <div key={trek.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group">
                 {/* Trek Image */}
-                <div className="h-48 bg-gradient-to-r from-green-400 to-blue-500 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-20 transition-all duration-300"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(trek.difficulty)} bg-opacity-90`}>
+                <div className="h-48 relative overflow-hidden bg-gray-200">
+                  <img 
+                    src={getTrekImage(trek.name)} 
+                    alt={trek.name}
+                    className="w-full h-full object-cover"
+                    onLoad={() => console.log(`Successfully loaded image for ${trek.name}: ${getTrekImage(trek.name)}`)}
+                    onError={(e) => {
+                      console.error(`Failed to load image for ${trek.name}:`, getTrekImage(trek.name))
+                      const target = e.target as HTMLImageElement
+                      target.src = '/images/treks/buran-ghati3.jpg'
+                    }}
+                  />
+                  <div className="absolute bottom-4 left-4">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(trek.difficulty)}`}>
                       {trek.difficulty}
                     </span>
                   </div>
@@ -575,6 +689,16 @@ export default function TreksPage() {
           </div>
         </div>
       </section>
+    </>
+  )
+}
+
+export default function TreksPage() {
+  return (
+    <Layout>
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="text-gray-600">Loading...</div></div>}>
+        <TreksPageContent />
+      </Suspense>
     </Layout>
   )
 }
