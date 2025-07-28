@@ -34,7 +34,11 @@ body {
   }
   
   /* Exception for banner text box - keep white text */
-  .relative.h-96 .text-white {
+  .relative.h-96 .text-white,
+  .relative.h-96 .text-white h1,
+  .relative.h-96 .text-white span,
+  .relative.h-96 h1,
+  .relative.h-96 div[style*="background-color: rgb(17, 24, 39)"] * {
     color: #ffffff !important;
   }
   
@@ -67,5 +71,21 @@ body {
   
   .bg-blue-50 .text-blue-800 span {
     color: #c1c9ceff !important;
+  }
+  
+  /* Professional Gear Rental section - Browse Gear button */
+  .bg-blue-600[href="/gear"] {
+    background-color: #111827ff !important;
+    color: #ffffff !important;
+  }
+  
+  /* Need Gear section - Browse Gear button on individual trek pages */
+  .bg-blue-50 .bg-blue-600[href="/gear"] {
+    color: #ffffff !important;
+  }
+  
+  /* Similar Treks section - View Details buttons */
+  .bg-gray-50 .bg-blue-600 {
+    background-color: #c1c9ceff !important;
   }
 }
