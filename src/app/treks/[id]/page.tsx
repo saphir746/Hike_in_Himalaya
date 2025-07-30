@@ -1,11 +1,11 @@
-'use client'
-
 import Layout from '../../../../components/Layout'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { useParams } from 'next/navigation'
-import { useState, useEffect } from 'react'
 import hikesData from '../../../../Hikes.json'
+import { Metadata } from 'next'
+import TrekBookingClient from './TrekBookingClient'
+import TrekContentClient from './TrekContentClient'
+import TrekHeroImage from './TrekHeroImage'
 
 interface Trek {
   id: number
@@ -23,28 +23,43 @@ interface Trek {
   suitability: string
 }
 
-export default function TrekDetailPage() {
-  const params = useParams()
-  const id = params.id as string
-  
-  // Booking dialog state
-  const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false)
-  const [bookingData, setBookingData] = useState({
-    numberOfPeople: 1,
-    selectedMonth: '',
-    totalPrice: 0
+// Helper function to find trek by slug
+const findTrekBySlug = (slug: string) => {
+  return hikesData.activities.find((trek: Trek) => {
+    const trekSlug = trek.name.toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
+    return trekSlug === slug
   })
+}
+
+// Generate metadata for the trek page
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params
+  const trek = findTrekBySlug(id)
   
-  // Convert slug back to find matching trek
-  const findTrekBySlug = (slug: string) => {
-    return hikesData.activities.find((trek: Trek) => {
-      const trekSlug = trek.name.toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^a-z0-9-]/g, '')
-      return trekSlug === slug
-    })
+  if (!trek) {
+    return {
+      title: 'Trek Not Found | Hike in Himalaya'
+    }
   }
 
+  const title = `${trek.name} | ${trek.duration} ${trek.location} Adventure | Hike in Himalaya`
+  const description = `Experience the ${trek.name} - a ${trek.difficulty.toLowerCase()} ${trek.duration} trek in ${trek.location}. Book your Himalayan adventure starting from ${trek.price.formatted}. Expert guides, all equipment included.`
+  
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+    }
+  }
+}
+
+export default async function TrekDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const trek = findTrekBySlug(id)
   
   if (!trek) {
@@ -61,40 +76,9 @@ export default function TrekDetailPage() {
     }
   }
 
-  // State for trek content
-  const [trekContent, setTrekContent] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
-
-  // Load trek content from Treks_descr file
-  useEffect(() => {
-    const loadTrekContent = async () => {
-      try {
-        const response = await fetch(`/api/trek-content/${trek.id}`)
-        if (response.ok) {
-          const content = await response.text()
-          setTrekContent(content)
-        }
-      } catch (error) {
-        console.error('Error loading trek content:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    loadTrekContent()
-  }, [trek.id])
-
-  // Trek content including base content from markdown file
-  const getDetailedInfo = (trekName: string) => {
+  // Trek detailed info
+  const getDetailedInfo = () => {
     const baseInfo = {
-      overview: `Experience the breathtaking beauty of ${trekName}. This carefully crafted itinerary takes you through some of the most spectacular landscapes in the Himalayas, offering a perfect blend of adventure, natural beauty, and cultural immersion.`,
-      highlights: [
-        'Stunning panoramic mountain views',
-        'Expert local guides with extensive knowledge',
-        'Cultural interaction with local communities',
-        'Professional safety equipment and protocols',
-        'All meals and accommodation included'
-      ],
       included: [
         'Professional trek guide',
         'All necessary permits and entry fees',
@@ -110,7 +94,6 @@ export default function TrekDetailPage() {
         'Tips for guides and porters',
         'Any items not mentioned in inclusions'
       ],
-      best_time: 'March to June and September to November',
       equipment: {
         trekking_gear: [
           'Ruck sack bag with rain cover. Qty -1',
@@ -158,156 +141,6 @@ export default function TrekDetailPage() {
     return baseInfo
   }
 
-  // Booking functions
-  const getBestTrekkingMonths = (location: string, difficulty: string): string[] => {
-    const baseMonths: { [key: string]: string[] } = {
-      'Himachal': ['April', 'May', 'June', 'September', 'October'],
-      'Uttarakhand': ['April', 'May', 'June', 'September', 'October', 'November'],
-      'Kashmir': ['May', 'June', 'July', 'August', 'September'],
-      'Nepal': ['March', 'April', 'May', 'October', 'November', 'December'],
-      'Ladakh': ['June', 'July', 'August', 'September'],
-      'Manali, Himachal': ['April', 'May', 'June', 'September', 'October'],
-      'Garhwal Himalayas, Uttarakhand': ['April', 'May', 'June', 'September', 'October']
-    }
-
-    let months = baseMonths[location] || baseMonths['Himachal']
-    
-    if (difficulty === 'Challenging') {
-      months = months.filter(month => 
-        !['March', 'November', 'December'].includes(month)
-      )
-    }
-    
-    return months
-  }
-
-  const availableMonths = getBestTrekkingMonths(trek.location, trek.difficulty)
-
-  const calculateTotalPrice = (numberOfPeople: number) => {
-    return trek.price.amount * numberOfPeople
-  }
-
-  const handleBookingSubmit = () => {
-    if (!bookingData.selectedMonth) {
-      alert('Please select a month for your trek')
-      return
-    }
-
-    const cartItem = {
-      id: `trek-${trek.id}-${Date.now()}`,
-      type: 'trek',
-      name: trek.name,
-      location: trek.location,
-      duration: trek.duration,
-      difficulty: trek.difficulty,
-      numberOfPeople: bookingData.numberOfPeople,
-      selectedMonth: bookingData.selectedMonth,
-      pricePerPerson: trek.price.amount,
-      totalPrice: calculateTotalPrice(bookingData.numberOfPeople),
-      formattedPrice: `₹${calculateTotalPrice(bookingData.numberOfPeople).toLocaleString()}`,
-      addedAt: Date.now()
-    }
-
-    // Get existing cart or create new one
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]')
-    existingCart.push(cartItem)
-    localStorage.setItem('cart', JSON.stringify(existingCart))
-
-    // Close dialog and show success message
-    setIsBookingDialogOpen(false)
-    alert(`${trek.name} has been added to your cart for ${bookingData.numberOfPeople} ${bookingData.numberOfPeople === 1 ? 'person' : 'people'} in ${bookingData.selectedMonth}!`)
-    
-    // Reset booking data
-    setBookingData({
-      numberOfPeople: 1,
-      selectedMonth: '',
-      totalPrice: 0
-    })
-  }
-
-  // Function to format trek content for display
-  const formatTrekContent = (content: string) => {
-    // Split content into lines and process
-    const lines = content.split('\n')
-    const processedLines: string[] = []
-    let currentSection = ''
-    
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim()
-      
-      // Skip empty lines
-      if (!line) {
-        processedLines.push('<br>')
-        continue
-      }
-      
-      // Handle headings
-      if (line.startsWith('# ')) {
-        const title = line.substring(2)
-        processedLines.push(`<h1 class="text-4xl font-bold mb-6 text-gray-900">${title}</h1>`)
-      } else if (line.startsWith('## ')) {
-        const title = line.substring(3)
-        currentSection = title.toLowerCase()
-        const isItinerary = title.toLowerCase().includes('itinerary')
-        if (isItinerary) {
-          processedLines.push(`
-            <div class="mb-8 mt-8">
-              <h2 class="text-3xl font-bold mb-2 text-gray-900 flex items-center gap-3">
-                <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-                  </svg>
-                </div>
-                ${title}
-              </h2>
-              <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mb-6"></div>
-            </div>
-          `)
-        } else {
-          processedLines.push(`<h2 class="text-3xl font-bold mb-6 text-gray-900">${title}</h2>`)
-        }
-      } else if (line.startsWith('### ')) {
-        const title = line.substring(4)
-        processedLines.push(`<h3 class="text-2xl font-bold mb-4 text-gray-900">${title}</h3>`)
-      } else if (line.startsWith('Day ')) {
-        const dayNumber = line.match(/Day (\d+)/)?.[1] || ''
-        const dayTitle = line.substring(line.indexOf(':') + 1).trim()
-        
-        // Different formatting for Brief vs Detailed Itinerary
-        if (currentSection.includes('brief')) {
-          // Narrow banner with description text to the right for Brief Itinerary (no numbered dial)
-          processedLines.push(`
-            <div class="flex items-start gap-4 mt-4 mb-3">
-              <div class="flex items-center p-3 rounded-lg border-l-4 shadow-sm" style="background-color: #c1c9ceff; border-left-color: #4a5568; width: fit-content;">
-                <div>
-                  <span class="font-bold text-gray-900 text-base whitespace-nowrap">Day ${dayNumber}</span>
-                </div>
-              </div>
-              <div class="flex-1 pt-3">
-                <p class="text-gray-700 font-medium">${dayTitle}</p>
-              </div>
-            </div>
-          `)
-        } else {
-          // Larger format for Detailed Itinerary (no numbered dial)
-          processedLines.push(`
-            <div class="flex items-start gap-4 mt-6 mb-4 p-4 rounded-xl border-l-4 shadow-sm" style="background-color: #c1c9ceff; border-left-color: #4a5568;">
-              <div class="flex-1">
-                <h4 class="font-bold text-gray-900 text-lg mb-1">Day ${dayNumber}</h4>
-                <p class="text-gray-700 font-medium">${dayTitle}</p>
-              </div>
-            </div>
-          `)
-        }
-      } else {
-        // Regular paragraphs
-        processedLines.push(`<p class="text-gray-600 leading-relaxed mb-4">${line}</p>`)
-      }
-    }
-    
-    return processedLines.join('')
-  }
-
   // Function to get matching image for the trek
   const getTrekImage = (trekName: string) => {
     const imageMap: { [key: string]: string } = {
@@ -331,22 +164,16 @@ export default function TrekDetailPage() {
     return imageMap[trekName] || '/images/treks/buran-ghati3.jpg'
   }
 
-  const detailedInfo = getDetailedInfo(trek.name)
+  const detailedInfo = getDetailedInfo()
 
   return (
     <Layout>
       {/* Hero Section */}
       <section className="relative h-96 bg-gray-200">
-        <img 
+        <TrekHeroImage 
           src={getTrekImage(trek.name)} 
           alt={trek.name}
           className="absolute inset-0 w-full h-full object-cover"
-          onLoad={() => console.log(`Successfully loaded banner image for ${trek.name}: ${getTrekImage(trek.name)}`)}
-          onError={(e) => {
-            console.error(`Failed to load banner image for ${trek.name}:`, getTrekImage(trek.name))
-            const target = e.target as HTMLImageElement
-            target.src = '/images/treks/buran-ghati3.jpg'
-          }}
         />
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="text-white p-6 rounded-2xl" style={{ backgroundColor: '#111827b3' }}>
@@ -425,45 +252,7 @@ export default function TrekDetailPage() {
               </div>
 
               {/* Trek Content from Treks_descr */}
-              <div className="mb-12">
-                {isLoading ? (
-                  <div className="flex items-center justify-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                    <span className="ml-2 text-gray-600">Loading trek details...</span>
-                  </div>
-                ) : trekContent ? (
-                  <div className="max-w-none">
-                    <div 
-                      className="trek-content"
-                      dangerouslySetInnerHTML={{ __html: formatTrekContent(trekContent) }}
-                    />
-                  </div>
-                ) : (
-                  <>
-                    {/* Fallback to original content if no file found */}
-                    <div className="mb-12">
-                      <h2 className="text-3xl font-bold mb-6">Overview</h2>
-                      <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                        {detailedInfo.overview}
-                      </p>
-                    </div>
-
-                    <div className="mb-12">
-                      <h3 className="text-2xl font-bold mb-6">Trek Highlights</h3>
-                      <div className="grid md:grid-cols-2 gap-4">
-                        {detailedInfo.highlights.map((highlight, index) => (
-                          <div key={index} className="flex items-start">
-                            <svg className="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span className="text-gray-700">{highlight}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
+              <TrekContentClient trekId={trek.id} trekName={trek.name} />
 
               {/* What&apos;s Included */}
               <div className="mb-12">
@@ -605,73 +394,7 @@ export default function TrekDetailPage() {
 
             {/* Sidebar */}
             <div>
-              {/* Booking Card */}
-              <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-lg">
-                <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-green-600 mb-2">
-                    {trek.price.formatted}
-                  </div>
-                  <div className="text-gray-600">per person</div>
-                </div>
-
-                {/* Trek Details */}
-                <div className="space-y-4 mb-6">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Duration:</span>
-                    <span className="font-medium">{trek.duration}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Group Size:</span>
-                    <span className="font-medium">{trek.group_size}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Difficulty:</span>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(trek.difficulty)}`}>
-                      {trek.difficulty}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Best Time:</span>
-                    <span className="font-medium text-right">{detailedInfo.best_time}</span>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="space-y-3">
-                  <button
-                    onClick={() => setIsBookingDialogOpen(true)}
-                    className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center"
-                  >
-                    Book This Trek
-                  </button>
-                  <Link
-                    href="/contact"
-                    className="w-full border border-green-600 text-green-600 py-3 px-4 rounded-lg font-semibold hover:bg-green-50 transition-colors text-center block"
-                  >
-                    Ask Questions
-                  </Link>
-                </div>
-
-                {/* Contact Info */}
-                <div className="mt-6 pt-6 border-t text-center">
-                  <p className="text-sm text-gray-600 mb-2">Need help planning?</p>
-                  <p className="text-green-600 font-semibold">+91 98052 03783</p>
-                </div>
-
-                {/* Gear Rental CTA */}
-                <div className="mt-6 pt-6 border-t bg-blue-50 p-4 rounded-lg">
-                  <h4 className="text-lg font-semibold mb-2">Need Gear?</h4>
-                  <p className="text-gray-600 text-sm mb-4">
-                    Rent professional trekking equipment for your adventure.
-                  </p>
-                  <Link
-                    href="/gear"
-                    className="bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors inline-block"
-                  >
-                    Browse Gear
-                  </Link>
-                </div>
-              </div>
+              <TrekBookingClient trek={trek} />
             </div>
           </div>
         </div>
@@ -719,106 +442,6 @@ export default function TrekDetailPage() {
         </div>
       </section>
 
-      {/* Booking Dialog */}
-      {isBookingDialogOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold">Book Your Trek</h3>
-              <button
-                onClick={() => setIsBookingDialogOpen(false)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="space-y-4">
-              {/* Trek Info */}
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-gray-900">{trek.name}</h4>
-                <p className="text-sm text-gray-600">{trek.location} • {trek.duration}</p>
-                <p className="text-lg font-bold text-green-600">{trek.price.formatted} per person</p>
-              </div>
-
-              {/* Number of People */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Number of People
-                </label>
-                <select
-                  value={bookingData.numberOfPeople}
-                  onChange={(e) => setBookingData({
-                    ...bookingData,
-                    numberOfPeople: parseInt(e.target.value),
-                    totalPrice: calculateTotalPrice(parseInt(e.target.value))
-                  })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                >
-                  {Array.from({ length: 15 }, (_, i) => i + 1).map(num => (
-                    <option key={num} value={num}>{num} {num === 1 ? 'Person' : 'People'}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Month Selection */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Preferred Month
-                </label>
-                <select
-                  value={bookingData.selectedMonth}
-                  onChange={(e) => setBookingData({
-                    ...bookingData,
-                    selectedMonth: e.target.value
-                  })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                >
-                  <option value="">Select a month</option>
-                  {availableMonths.map(month => (
-                    <option key={month} value={month}>{month}</option>
-                  ))}
-                </select>
-                <p className="text-xs text-gray-500 mt-1">
-                  Showing best months for {trek.location} ({trek.difficulty} difficulty)
-                </p>
-              </div>
-
-              {/* Total Price */}
-              <div className="bg-green-50 p-4 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Total Price:</span>
-                  <span className="text-xl font-bold text-green-600">
-                    ₹{calculateTotalPrice(bookingData.numberOfPeople).toLocaleString()}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600 mt-1">
-                  {bookingData.numberOfPeople} {bookingData.numberOfPeople === 1 ? 'person' : 'people'} × {trek.price.formatted}
-                </p>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex space-x-3 pt-4">
-                <button
-                  onClick={() => setIsBookingDialogOpen(false)}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleBookingSubmit}
-                  disabled={!bookingData.selectedMonth}
-                  className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </Layout>
   )
 }

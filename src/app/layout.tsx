@@ -13,9 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hike in Himalaya",
-  description: "Your ultimate Himalayan Adventure",
-};
+  title: "Himalayan Trekking Tours | Expert Guided Adventures in Himachal Pradesh | Hike in Himalaya",
+  description: "Experience expert-guided Himalayan trekking adventures in Himachal Pradesh, Kashmir Ladakh and Nepal. Discover Buran Ghati, Chandranahan Lake, and Rupin Pass treks with local experts in small guided groups.",};
 
 export default function RootLayout({
   children,

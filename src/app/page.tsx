@@ -146,8 +146,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-20">
           <div className="text-center">
             <h1 className="text-5xl font-bold mb-6">
-            Discover Your Next Adventure
+            Hike in Himalaya
             </h1>
+            <h2  className="text-2xl font-bold mb-6">
+            Expert Himalayan Trekking Adventures in India and Nepal
+            </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
             Experience the thrill of the Himalayas with our expertly guided tours. From beginner to expert, we offer unforgettable adventures for all skill levels.
             </p>
@@ -172,7 +175,7 @@ export default function Home() {
       {/* Popular Treks Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Popular Adventures</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Popular Himalayan Adventures</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Trek 1: Buran Ghati Trek */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
@@ -528,6 +531,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4 text-gray-900">What Our Adventurers Say</h2>
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">Trekker Reviews and Experiences</h3>
             <p className="text-gray-600 mb-6">
               Real experiences from trekkers who have joined our Himalayan adventures
             </p>
@@ -785,7 +789,7 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-16 bg-green-600 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready for Your Next Adventure?</h2>
+          <h2 className="text-3xl font-bold mb-4">Ready for Your Next Himalayan Adventure?</h2>
           <p className="text-xl mb-8">
             Join thousands of adventurers who have trusted us with their Himalayan dreams.
           </p>
