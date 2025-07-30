@@ -75,22 +75,6 @@ export default function AboutPage() {
               Expert in adventure tour planning and logistics
               </p>
             </div>
-            <div className="text-center">
-              <div className="w-48 h-64 rounded-lg mx-auto mb-4 overflow-hidden">
-                <Image
-                  src="/images/people/ashish.jpeg"
-                  alt="Ashish Negi"
-                  width={292}
-                  height={256}
-                  className="object-cover w-full h-full"
-                />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Ashish Negi</h3>
-              <p className="text-green-600 font-medium mb-2">Co-Founder</p>
-              <p className="text-gray-600 text-sm">
-              Expert in adventure tour planning and logistics
-              </p>
-            </div>
           </div>
         </div>
 
