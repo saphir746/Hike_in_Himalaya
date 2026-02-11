@@ -224,15 +224,30 @@
       "difficulty": "Challenging",
       "altitude": "6,166m",
       "suitability": "Advanced trekkers"
+    },
+    {
+      "id": 16,
+      "name": "Mont blanc expedition",
+      "location": "Uttarakhand",
+      "duration": "6 Days",
+      "group_size": "6-10 People",
+      "price": {
+        "amount": 80000,
+        "currency": "INR",
+        "formatted": "₹80,000"
+      },
+      "difficulty": "Challenging",
+      "altitude": "4,166m",
+      "suitability": "Advanced trekkers"
     }
   ],
   "metadata": {
-    "total_activities": 15,
+    "total_activities": 16,
     "regions": ["Himachal", "Uttarakhand", "Kashmir", "Nepal", "Ladakh"],
     "difficulty_distribution": {
       "Easy": 1,
       "Moderate": 5,
-      "Challenging": 9
+      "Challenging": 10
     },
     "price_range": {
       "min": 5990,
